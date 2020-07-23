@@ -1,7 +1,9 @@
 #barArray {
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
   justify-content: center;
-  align-items: flex-end;
+  align-items: flex-end; // para inverter barras
   height: 80%;
   width: 90%;
   border: 2px solid green;

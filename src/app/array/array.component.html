@@ -1,11 +1,9 @@
 <div id="barArray">
-  <app-bar *ngFor="let number of range(5)"
-           [style.order]="number"
-           [order]="number">
+  <app-bar *ngFor="let number of range(_size)">
   </app-bar>
 </div>
 
 <button (click)="sort()">Sort</button>
-<button (click)="order()">Order</button>
+<button (click)="next()">next</button>
 
 <!-- [height]="array[number - 1]" -->

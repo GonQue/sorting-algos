@@ -4,15 +4,21 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 @Component({
   selector: 'app-bar',
   animations: [
-    trigger('changeColor', [
-      state('red', style({
-        backgroundColor: 'red'
+    trigger('changeState', [
+      state('initial', style({
+        backgroundColor: 'cyan'
       })),
-      state('green', style({
-        backgroundColor: 'green',
+      state('comparing', style({
+        backgroundColor: 'purple',
       })),
-      transition('red <=> green', [
-        animate('250ms'),
+      state('minimum', style({
+        backgroundColor: 'yellow',
+      })),
+      state('   ', style({
+        backgroundColor: 'purple',
+      })),
+      transition('* => *', [
+        animate('10ms'),
 
       ])
     ])
@@ -21,28 +27,35 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
   styleUrls: ['./bar.component.scss']
 })
 export class BarComponent implements OnInit {
-  @Input() height : number;
+  @Input() _height : number;
 
-  @HostBinding('style.order') order : number;
-
-  colour : string = 'red';
+  _state : string = 'initial';
 
   constructor() {
-    this.height = Math.floor(Math.random() * (500 - 5 + 1) ) + 5;
+    this._height = Math.floor(Math.random() * (500 - 5 + 1) ) + 5;
   }
 
   ngOnInit(): void {
   }
 
   color() {
-    this.colour = this.colour == 'red' ? 'green' : 'red';
-    this.order = this.colour == 'red' ? -1 : 999;
+    //this._colour = this._colour == 'red' ? 'green' : 'red';
+    this._state = 'comparing';
+    this._height = 50;
+    // this._order = this._colour == 'red' ? -1 : 999;
   }
 
-  last() {
-    this.order = 999;
+  get height(): number {
+    return this._height;
   }
 
+  set height(value: number) {
+    this._height = value;
+  }
+
+  set state(value: string) {
+    this._state = value;
+  }
 }
 
 /*function getRndInteger(min, max) {

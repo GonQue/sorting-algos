@@ -1,6 +1,4 @@
 <div class="bar"
-     [style.height.px]="height"
-     [@changeColor]="colour">
+     [style.height.px]="_height"
+     [@changeState]="_state">
 </div>
-
-<button (click)="color()"></button>

@@ -1,51 +1,58 @@
-import {AfterViewInit, Component, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {
+  Component,
+  ComponentFactoryResolver,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren
+} from '@angular/core';
 import {BarComponent} from "../bar/bar.component";
 import {SelectionSort} from "../sorters/SelectionSort";
 import {Transition} from "../transition";
-import set = Reflect.set;
+import {BarDirective} from "../bar-host.directive";
 
 @Component({
   selector: 'app-array',
   templateUrl: './array.component.html',
   styleUrls: ['./array.component.scss']
 })
-export class ArrayComponent implements OnInit, AfterViewInit {
+export class ArrayComponent implements OnInit {
   _size : number = 5;
   @ViewChildren(BarComponent) _barList: QueryList<BarComponent>;
   _barArray: BarComponent[] = [];
   _sorter : SelectionSort = new SelectionSort();
   _transitions : Transition[] = [];
   _tranIndex : number = 0;
+  @ViewChild(BarDirective, {static: true}) barHost : BarDirective;
 
-  constructor() { }
+  constructor(private componentFactoryResolver : ComponentFactoryResolver) { }
 
   ngOnInit(): void {
-    /*this.array.push(120);
-    this.array.push(50);
-    this.array.push(250);
-    this.bars = document.getElementsByTagName('app-bar');*/
+    this.loadBars();
+
   }
 
-  ngAfterViewInit(): void {
-    console.log("after view");
-    console.log(this._barList.length);
-    this._barArray = this._barList.toArray();
+  loadBars() {
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(BarComponent);
+
+    const viewContainerRef = this.barHost.viewContainerRef;
+    viewContainerRef.clear();
+
+    for (let i = 0 ; i < this._size; i++) {
+      let componentRef = viewContainerRef.createComponent(componentFactory);
+      this._barArray.push(componentRef.instance);
+    }
+
   }
 
   sort() {
-    this._transitions = this._sorter.sort(this._barArray.slice(),0,4);
+    this._transitions = this._sorter.sort(this._barArray.slice(),0,this._size - 1);
     this.animate();
-    /*this.bars[0].children[0];
-    setTimeout(() => {
-      document.getElementById("1").style.order = '120';
-      document.getElementById("2").style.order = '50';
-      document.getElementById("3").style.order = '250';
-    }, 500);*/
   }
 
   animate() {
     console.log(this._transitions);
-    let time = 500;
+    let time = 10;
 
     // if (this._tranIndex < this._transitions.length) {
     //   if (this._transitions[this._tranIndex].state === 'swap') {
@@ -81,13 +88,17 @@ export class ArrayComponent implements OnInit, AfterViewInit {
     }
   }
 
+
+  // IMPLEMENTAR TEMPO QUE DEMOROU A CORRER, RESET PARA ESTADO INICIAL DO ARRAY, GERAR NOVO ARRAY
+
   next() {
     this._tranIndex++;
     this.animate();
   }
 
-  range(number) {
-    return Array(number);
+  newArray() {
+    this._barArray = [];
+    this._size = 10;
+    this.loadBars();
   }
-
 }

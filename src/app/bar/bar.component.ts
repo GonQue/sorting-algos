@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
@@ -14,8 +14,8 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
       state('minimum', style({
         backgroundColor: 'yellow',
       })),
-      state('   ', style({
-        backgroundColor: 'purple',
+      state('sorted', style({
+        backgroundColor: 'green',
       })),
       transition('* => *', [
         animate('10ms'),

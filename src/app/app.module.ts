@@ -3,9 +3,11 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ArrayComponent } from './array/array.component';
-import { BarComponent } from './bar/bar.component';
-import { BarDirective } from './bar-host.directive';
+import { ArrayComponent } from './components/array/array.component';
+import { BarComponent } from './components/bar/bar.component';
+import { BarDirective } from './components/bar/bar-host.directive';
+import {MatButtonModule} from "@angular/material/button";
+import {MatSliderModule} from "@angular/material/slider";
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { BarDirective } from './bar-host.directive';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatButtonModule,
+    MatSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

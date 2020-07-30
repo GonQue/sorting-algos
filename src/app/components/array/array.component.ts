@@ -7,9 +7,11 @@ import {
   ViewChildren
 } from '@angular/core';
 import {BarComponent} from "../bar/bar.component";
-import {SelectionSort} from "../sorters/SelectionSort";
+import {SelectionSort} from "../../sorters/SelectionSort";
 import {Transition} from "../transition";
-import {BarDirective} from "../bar-host.directive";
+import {BarDirective} from "../bar/bar-host.directive";
+import {MatSliderChange} from "@angular/material/slider";
+import set = Reflect.set;
 
 @Component({
   selector: 'app-array',
@@ -17,22 +19,25 @@ import {BarDirective} from "../bar-host.directive";
   styleUrls: ['./array.component.scss']
 })
 export class ArrayComponent implements OnInit {
-  _size : number = 5;
-  @ViewChildren(BarComponent) _barList: QueryList<BarComponent>;
+  _initialArray: number[] = [];
   _barArray: BarComponent[] = [];
-  _sorter : SelectionSort = new SelectionSort();
-  _transitions : Transition[] = [];
-  _tranIndex : number = 0;
-  @ViewChild(BarDirective, {static: true}) barHost : BarDirective;
+  _size: number = 5;
+  _sorter: SelectionSort = new SelectionSort();
+  _transitions: Transition[] = [];
+  _tranIndex: number = 0;
+  _speed: number = 10;
+  @ViewChild(BarDirective, {static: true}) barHost: BarDirective;
+  _disableButtons: boolean = false;
 
   constructor(private componentFactoryResolver : ComponentFactoryResolver) { }
 
   ngOnInit(): void {
     this.loadBars();
-
   }
 
-  loadBars() {
+  loadBars(): void {
+    this._barArray = [];
+    this._initialArray = [];
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(BarComponent);
 
     const viewContainerRef = this.barHost.viewContainerRef;
@@ -41,18 +46,34 @@ export class ArrayComponent implements OnInit {
     for (let i = 0 ; i < this._size; i++) {
       let componentRef = viewContainerRef.createComponent(componentFactory);
       this._barArray.push(componentRef.instance);
+      this._initialArray.push(componentRef.instance.height);
     }
-
   }
 
-  sort() {
+  restartArray(): void {
+    for (let i = 0; i < this._size; i++) {
+      this._barArray[i].height = this._initialArray[i];
+      this._barArray[i].state = 'initial';
+    }
+  }
+
+  onSizeSliderChange(event: MatSliderChange): void {
+    this._size = event.value;
+    this.loadBars();
+  }
+
+  onSpeedSliderChange(event: MatSliderChange): void {
+    this._speed = event.value;
+  }
+
+  sort(): void {
+    this._disableButtons = true;
     this._transitions = this._sorter.sort(this._barArray.slice(),0,this._size - 1);
     this.animate();
   }
 
   animate() {
     console.log(this._transitions);
-    let time = 10;
 
     // if (this._tranIndex < this._transitions.length) {
     //   if (this._transitions[this._tranIndex].state === 'swap') {
@@ -77,28 +98,25 @@ export class ArrayComponent implements OnInit {
           let temp = this._barArray[this._transitions[i].index1].height;
           this._barArray[this._transitions[i].index1].height = this._barArray[this._transitions[i].index2].height;
           this._barArray[this._transitions[i].index2].height = temp;
-        }, i * time);
+        }, i * this._speed);
       } else {
         setTimeout(() => {
           this._barArray[this._transitions[i].index1].state = this._transitions[i].state;
           if (this._transitions[i].index2 !== -1)
             this._barArray[this._transitions[i].index2].state = this._transitions[i].state;
-        }, i * time);
+
+          if (i === this._transitions.length - 1) // last animation is never a 'swap'
+            this._disableButtons = false;
+        }, i * this._speed);
       }
     }
   }
 
 
-  // IMPLEMENTAR TEMPO QUE DEMOROU A CORRER, RESET PARA ESTADO INICIAL DO ARRAY, GERAR NOVO ARRAY
+  // IMPLEMENTAR TEMPO QUE DEMOROU A CORRER
 
   next() {
     this._tranIndex++;
     this.animate();
-  }
-
-  newArray() {
-    this._barArray = [];
-    this._size = 10;
-    this.loadBars();
   }
 }

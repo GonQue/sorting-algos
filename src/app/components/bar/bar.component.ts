@@ -38,12 +38,6 @@ export class BarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  color() {
-    //this._colour = this._colour == 'red' ? 'green' : 'red';
-    this._state = 'comparing';
-    this._height = 50;
-    // this._order = this._colour == 'red' ? -1 : 999;
-  }
 
   get height(): number {
     return this._height;

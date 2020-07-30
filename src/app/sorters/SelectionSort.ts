@@ -1,5 +1,5 @@
-import {BarComponent} from "../bar/bar.component";
-import {Transition} from "../transition";
+import {BarComponent} from "../components/bar/bar.component";
+import {Transition} from "../components/transition";
 
 export class SelectionSort {
   sort(array: BarComponent[], l: number, r: number) : Transition[] {

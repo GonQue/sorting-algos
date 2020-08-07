@@ -9,7 +9,6 @@ export class Transition {
     this._state = state;
   }
 
-
   get index1(): number {
     return this._index1;
   }

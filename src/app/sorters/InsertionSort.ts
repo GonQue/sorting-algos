@@ -30,6 +30,9 @@ export class InsertionSort extends Sorter {
       transitions.push(new Transition(j, v.height, 'set'));
     }
 
+    for (i = 0; i <= r; i++)
+      transitions.push(new Transition(i, -1, "sorted"));
+
     array.forEach(element => console.log(element.height));
 
     return transitions;

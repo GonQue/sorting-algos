@@ -30,6 +30,8 @@ export class ArrayComponent implements OnInit {
   _speed: number = 10;
   @ViewChild(BarDirective, {static: true}) barHost: BarDirective;
   _disableButtons: boolean = false;
+  _timer: number;
+
 
   constructor(private componentFactoryResolver : ComponentFactoryResolver) { }
 
@@ -72,57 +74,79 @@ export class ArrayComponent implements OnInit {
     this._disableButtons = true;
     this._transitions = [];
     this._transitions = this._sorter.sort(this._barArray.slice(),0,this._size - 1);
-    this.animate();
+    // this.animate();
+    this._timer = setInterval(() => {
+      this.animate();
+    }, this._speed);
   }
 
-  animate() {
+  stop(): void {
+    this._disableButtons = false;
+    clearInterval(this._timer);
+  }
+
+  resume(): void {
+    this._disableButtons = true;
+    this._timer = setInterval(() => {
+      this.animate();
+    }, this._speed);
+  }
+
+  animate(): void {
     console.log(this._transitions);
+    console.log("Hello");
 
-    // if (this._tranIndex < this._transitions.length) {
-    //   if (this._transitions[this._tranIndex].state === 'swap') {
-    //     let temp = this._barArray[this._transitions[this._tranIndex].index1].height;
-    //       this._barArray[this._transitions[this._tranIndex].index1].height = this._barArray[this._transitions[this._tranIndex].index2].height;
-    //       this._barArray[this._transitions[this._tranIndex].index2].height = temp;
-    //   }
-    //
-    //   else if (this._transitions[this._tranIndex].state === 'set') {
-    //     this._barArray[this._transitions[this._tranIndex].index1].height = this._transitions[this._tranIndex].index2;
-    //   }
-    //
-    //   else {
-    //       this._barArray[this._transitions[this._tranIndex].index1].state = this._transitions[this._tranIndex].state;
-    //       if (this._transitions[this._tranIndex].index2 !== -1)
-    //         this._barArray[this._transitions[this._tranIndex].index2].state = this._transitions[this._tranIndex].state;
-    //   }
-    // }
+    if (this._tranIndex < this._transitions.length) {
+      if (this._transitions[this._tranIndex].state === 'swap') {
+        let temp = this._barArray[this._transitions[this._tranIndex].index1].height;
+          this._barArray[this._transitions[this._tranIndex].index1].height = this._barArray[this._transitions[this._tranIndex].index2].height;
+          this._barArray[this._transitions[this._tranIndex].index2].height = temp;
+      }
 
-    for (let i = 0; i < this._transitions.length; i++) {
-      setTimeout(() => {
-        if (this._transitions[i].state === 'swap') {
-          let temp = this._barArray[this._transitions[i].index1].height;
-          this._barArray[this._transitions[i].index1].height = this._barArray[this._transitions[i].index2].height;
-          this._barArray[this._transitions[i].index2].height = temp;
-        }
+      else if (this._transitions[this._tranIndex].state === 'set') {
+        this._barArray[this._transitions[this._tranIndex].index1].height = this._transitions[this._tranIndex].index2;
+      }
 
-        else if (this._transitions[i].state === 'set') {
-          this._barArray[this._transitions[i].index1].height = this._transitions[i].index2;
-        }
-
-        else {
-            this._barArray[this._transitions[i].index1].state = this._transitions[i].state;
-            if (this._transitions[i].index2 !== -1)
-              this._barArray[this._transitions[i].index2].state = this._transitions[i].state;
-        }
-
-        if (i === this._transitions.length - 1) // last animation
-          this._disableButtons = false;
-
-        }, i * this._speed);
+      else {
+          this._barArray[this._transitions[this._tranIndex].index1].state = this._transitions[this._tranIndex].state;
+          if (this._transitions[this._tranIndex].index2 !== -1)
+            this._barArray[this._transitions[this._tranIndex].index2].state = this._transitions[this._tranIndex].state;
+      }
+      this._tranIndex++;
     }
+    else {
+      this._tranIndex = 0;
+      this.stop();
+    }
+
+    // for (let i = 0; i < this._transitions.length; i++) {
+    //   setTimeout(() => {
+    //     if (this._transitions[i].state === 'swap') {
+    //       let temp = this._barArray[this._transitions[i].index1].height;
+    //       this._barArray[this._transitions[i].index1].height = this._barArray[this._transitions[i].index2].height;
+    //       this._barArray[this._transitions[i].index2].height = temp;
+    //     }
+    //
+    //     else if (this._transitions[i].state === 'set') {
+    //       this._barArray[this._transitions[i].index1].height = this._transitions[i].index2;
+    //     }
+    //
+    //     else {
+    //         this._barArray[this._transitions[i].index1].state = this._transitions[i].state;
+    //         if (this._transitions[i].index2 !== -1)
+    //           this._barArray[this._transitions[i].index2].state = this._transitions[i].state;
+    //     }
+    //
+    //     if (i === this._transitions.length - 1) // last animation
+    //       this._disableButtons = false;
+    //
+    //     }, i * this._speed);
+    // }
   }
 
 
   // IMPLEMENTAR TEMPO QUE DEMOROU A CORRER
+  // BUGS COM SEQUENCIA DE SORT, RESET, STOP, RESUME
 
   next() {
     this._tranIndex++;

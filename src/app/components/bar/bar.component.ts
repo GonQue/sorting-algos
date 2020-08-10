@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
@@ -26,18 +26,15 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
   templateUrl: './bar.component.html',
   styleUrls: ['./bar.component.scss']
 })
-export class BarComponent implements OnInit {
+export class BarComponent {
   @Input() _height : number;
 
   _state : string = 'initial';
 
   constructor() {
-    this._height = Math.floor(Math.random() * (500 - 5 + 1) ) + 5;
+    let max = 500, min = 5;
+    this._height = Math.floor(Math.random() * (max - min + 1) ) + min;
   }
-
-  ngOnInit(): void {
-  }
-
 
   get height(): number {
     return this._height;
@@ -51,7 +48,3 @@ export class BarComponent implements OnInit {
     this._state = value;
   }
 }
-
-/*function getRndInteger(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) ) + min;
-}*/

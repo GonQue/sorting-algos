@@ -1,46 +1,4 @@
-<div id="topBar">
-  <button class="topBarButton" mat-raised-button [disabled]="_disableButtons" (click)="loadBars()">Generate new array</button>
-  <button class="topBarButton "mat-raised-button [disabled]="_disableButtons" (click)="restartArray()">Restart array</button>
-  <div class="topBarSlider">
-    <span class="sliderValue"> Size: {{ _size }} </span>
-    <mat-slider
-      [value]="5"
-      [min]="2"
-      [max]="100"
-      [disabled]="_disableButtons"
-      (input)="onSizeSliderChange($event)"
-    >
-    </mat-slider>
-  </div>
-  <div class="topBarSlider">
-    <span class="sliderValue"> Speed: {{ _speed }} </span>
-    <mat-slider
-      [value]="10"
-      [min]="0.1"
-      [max]="100"
-      [step]="0.1"
-      [disabled]="_disableButtons"
-      (input)="onSpeedSliderChange($event)"
-    >
-    </mat-slider>
-  </div>
-</div>
-
 <div id="barArray">
   <ng-template bar-host></ng-template>
 </div>
-
-<button
-  mat-raised-button
-  [disabled]="_disableButtons"
-  (click)="sort()">
-  Sort
-</button>
-<button
-  mat-raised-button
-  (click)="next()">
-  next
-</button>
-<button mat-raised-button (click)="stop()">STOP</button>
-<button mat-raised-button (click)="resume()">RESUME</button>
 

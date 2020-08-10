@@ -2,18 +2,12 @@ import {
   Component,
   ComponentFactoryResolver,
   OnInit,
-  QueryList,
   ViewChild,
-  ViewChildren
 } from '@angular/core';
 import {BarComponent} from "../bar/bar.component";
-import {SelectionSort} from "../../sorters/SelectionSort";
 import {Transition} from "../transition";
 import {BarDirective} from "../bar/bar-host.directive";
-import {MatSliderChange} from "@angular/material/slider";
-import set = Reflect.set;
 import {Sorter} from "../../sorters/Sorter";
-import {InsertionSort} from "../../sorters/InsertionSort";
 
 @Component({
   selector: 'app-array',
@@ -24,14 +18,7 @@ export class ArrayComponent implements OnInit {
   _initialArray: number[] = [];
   _barArray: BarComponent[] = [];
   _size: number = 5;
-  _sorter: Sorter = new InsertionSort();
-  _transitions: Transition[] = [];
-  _tranIndex: number = 0;
-  _speed: number = 10;
   @ViewChild(BarDirective, {static: true}) barHost: BarDirective;
-  _disableButtons: boolean = false;
-  _timer: number;
-
 
   constructor(private componentFactoryResolver : ComponentFactoryResolver) { }
 
@@ -61,95 +48,26 @@ export class ArrayComponent implements OnInit {
     }
   }
 
-  onSizeSliderChange(event: MatSliderChange): void {
-    this._size = event.value;
+  changeSize(size: number): void {
+    this._size = size;
     this.loadBars();
   }
 
-  onSpeedSliderChange(event: MatSliderChange): void {
-    this._speed = event.value;
+  sort(sorter: Sorter): Transition[] {
+    return sorter.sort(this._barArray.slice(),0,this._size - 1);
   }
 
-  sort(): void {
-    this._disableButtons = true;
-    this._transitions = [];
-    this._transitions = this._sorter.sort(this._barArray.slice(),0,this._size - 1);
-    // this.animate();
-    this._timer = setInterval(() => {
-      this.animate();
-    }, this._speed);
+  swapBars(i: number, j: number): void {
+    let temp = this._barArray[i].height;
+    this._barArray[i].height = this._barArray[j].height;
+    this._barArray[j].height = temp;
   }
 
-  stop(): void {
-    this._disableButtons = false;
-    clearInterval(this._timer);
+  changeBarHeight(index: number, height: number): void {
+    this._barArray[index].height = height;
   }
 
-  resume(): void {
-    this._disableButtons = true;
-    this._timer = setInterval(() => {
-      this.animate();
-    }, this._speed);
-  }
-
-  animate(): void {
-    console.log(this._transitions);
-    console.log("Hello");
-
-    if (this._tranIndex < this._transitions.length) {
-      if (this._transitions[this._tranIndex].state === 'swap') {
-        let temp = this._barArray[this._transitions[this._tranIndex].index1].height;
-          this._barArray[this._transitions[this._tranIndex].index1].height = this._barArray[this._transitions[this._tranIndex].index2].height;
-          this._barArray[this._transitions[this._tranIndex].index2].height = temp;
-      }
-
-      else if (this._transitions[this._tranIndex].state === 'set') {
-        this._barArray[this._transitions[this._tranIndex].index1].height = this._transitions[this._tranIndex].index2;
-      }
-
-      else {
-          this._barArray[this._transitions[this._tranIndex].index1].state = this._transitions[this._tranIndex].state;
-          if (this._transitions[this._tranIndex].index2 !== -1)
-            this._barArray[this._transitions[this._tranIndex].index2].state = this._transitions[this._tranIndex].state;
-      }
-      this._tranIndex++;
-    }
-    else {
-      this._tranIndex = 0;
-      this.stop();
-    }
-
-    // for (let i = 0; i < this._transitions.length; i++) {
-    //   setTimeout(() => {
-    //     if (this._transitions[i].state === 'swap') {
-    //       let temp = this._barArray[this._transitions[i].index1].height;
-    //       this._barArray[this._transitions[i].index1].height = this._barArray[this._transitions[i].index2].height;
-    //       this._barArray[this._transitions[i].index2].height = temp;
-    //     }
-    //
-    //     else if (this._transitions[i].state === 'set') {
-    //       this._barArray[this._transitions[i].index1].height = this._transitions[i].index2;
-    //     }
-    //
-    //     else {
-    //         this._barArray[this._transitions[i].index1].state = this._transitions[i].state;
-    //         if (this._transitions[i].index2 !== -1)
-    //           this._barArray[this._transitions[i].index2].state = this._transitions[i].state;
-    //     }
-    //
-    //     if (i === this._transitions.length - 1) // last animation
-    //       this._disableButtons = false;
-    //
-    //     }, i * this._speed);
-    // }
-  }
-
-
-  // IMPLEMENTAR TEMPO QUE DEMOROU A CORRER
-  // BUGS COM SEQUENCIA DE SORT, RESET, STOP, RESUME
-
-  next() {
-    this._tranIndex++;
-    this.animate();
+  changeBarStatus(index: number, status: string): void {
+    this._barArray[index].state = status;
   }
 }

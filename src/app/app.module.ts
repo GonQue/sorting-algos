@@ -8,6 +8,10 @@ import { BarComponent } from './components/bar/bar.component';
 import { BarDirective } from './components/bar/bar-host.directive';
 import {MatButtonModule} from "@angular/material/button";
 import {MatSliderModule} from "@angular/material/slider";
+import { HomeComponent } from './components/home/home.component';
+import { ControllerComponent } from './components/controller/controller.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -15,13 +19,17 @@ import {MatSliderModule} from "@angular/material/slider";
     ArrayComponent,
     BarComponent,
     BarDirective,
+    HomeComponent,
+    ControllerComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     MatButtonModule,
-    MatSliderModule
+    MatSliderModule,
+    MatFormFieldModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

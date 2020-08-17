@@ -29,15 +29,18 @@ export class HomeComponent implements AfterViewInit {
 
   generateNewArray(): void {
     this._arrayComponent.loadBars();
+    this._controllerComponent.resetAnimation();
   }
 
   restartArray(): void {
     this._arrayComponent.restartArray();
+    this._controllerComponent.resetAnimation();
   }
 
   onSizeSliderChange(event: MatSliderChange): void {
     this._size = event.value;
     this._arrayComponent.changeSize(event.value);
+    this._controllerComponent.resetAnimation();
   }
 
   onSpeedSliderChange(event: MatSliderChange): void {

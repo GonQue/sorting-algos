@@ -12,6 +12,8 @@ import { HomeComponent } from './components/home/home.component';
 import { ControllerComponent } from './components/controller/controller.component';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
+import {MatIconModule} from "@angular/material/icon";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import {MatSelectModule} from "@angular/material/select";
     MatButtonModule,
     MatSliderModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule,
+    MatSlideToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

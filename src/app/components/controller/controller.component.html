@@ -6,16 +6,32 @@
   </mat-select>
 </mat-form-field>
 
-<button
-  mat-raised-button
-  [disabled]="_disableButtons"
-  (click)="sort()">
-  Sort
-</button>
-<!-- <button
-  mat-raised-button
-  (click)="next()">
-  next
-</button> -->
-<button mat-raised-button (click)="stop()">STOP</button>
-<button mat-raised-button (click)="resume()">RESUME</button>
+<mat-slide-toggle (change)="onToggleChange($event)">Step Mode</mat-slide-toggle>
+
+<div *ngIf="!_stepMode; else stepButtons">
+  <button mat-fab (click)="rewind()">
+    <mat-icon>fast_rewind</mat-icon>
+  </button>
+
+  <button mat-fab (click)="sort()" *ngIf="_tranIndex === 0">
+    Sort
+  </button>
+
+  <button mat-fab *ngIf="_disableButtons === false && _tranIndex !== 0" (click)="resume()">
+    <mat-icon>play_arrow</mat-icon>
+  </button>
+
+  <button mat-fab *ngIf="_disableButtons === true" (click)="stop()">
+    <mat-icon>pause</mat-icon>
+  </button>
+</div>
+
+<ng-template #stepButtons>
+  <button mat-fab *ngIf="_transitions.length === 0" (click)="sort()">Sort</button>
+  <button mat-fab (click)="previous()">
+    <mat-icon>skip_previous</mat-icon>
+  </button>
+  <button mat-fab (click)="next()">
+    <mat-icon>skip_next</mat-icon>
+  </button>
+</ng-template>

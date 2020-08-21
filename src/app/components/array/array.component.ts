@@ -8,6 +8,8 @@ import {BarComponent} from "../bar/bar.component";
 import {Transition} from "../transition";
 import {BarDirective} from "../bar/bar-host.directive";
 import {Sorter} from "../../sorters/Sorter";
+import {Frame} from "../frame";
+import {Bar} from "../bar";
 
 @Component({
   selector: 'app-array',
@@ -15,7 +17,7 @@ import {Sorter} from "../../sorters/Sorter";
   styleUrls: ['./array.component.scss']
 })
 export class ArrayComponent implements OnInit {
-  _initialArray: number[] = [];
+  _initialArray: Bar[] = [];
   _barArray: BarComponent[] = [];
   _size: number = 5;
   @ViewChild(BarDirective, {static: true}) barHost: BarDirective;
@@ -37,13 +39,13 @@ export class ArrayComponent implements OnInit {
     for (let i = 0 ; i < this._size; i++) {
       let componentRef = viewContainerRef.createComponent(componentFactory);
       this._barArray.push(componentRef.instance);
-      this._initialArray.push(componentRef.instance.height);
+      this._initialArray.push(new Bar(componentRef.instance.height, 'initial'));
     }
   }
 
   restartArray(): void {
     for (let i = 0; i < this._size; i++) {
-      this._barArray[i].height = this._initialArray[i];
+      this._barArray[i].height = this._initialArray[i].height;
       this._barArray[i].state = 'initial';
     }
   }
@@ -53,8 +55,8 @@ export class ArrayComponent implements OnInit {
     this.loadBars();
   }
 
-  sort(sorter: Sorter): Transition[] {
-    return sorter.sort(this._barArray.slice(),0,this._size - 1);
+  sort(sorter: Sorter): Frame[] {
+    return sorter.sort(this._initialArray,0,this._size - 1);
   }
 
   swapBars(i: number, j: number): void {

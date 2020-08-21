@@ -1,9 +1,10 @@
 import {Sorter} from "./Sorter";
-import {BarComponent} from "../components/bar/bar.component";
 import {Transition} from "../components/transition";
+import {Frame} from "../components/frame";
+import {Bar} from "../components/bar";
 
 export class InsertionSort extends Sorter {
-  sort(array: BarComponent[], l: number, r: number) : Transition[] {
+  sort(array: Bar[], l: number, r: number) : Frame[] {
     let i, transitions = [];
 
     for (i = r; i > l; i--) {

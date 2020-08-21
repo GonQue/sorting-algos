@@ -6,6 +6,7 @@ import {SelectionSort} from "../../sorters/SelectionSort";
 import {InsertionSort} from "../../sorters/InsertionSort";
 import {Transition} from "../transition";
 import {MatSlideToggleChange} from "@angular/material/slide-toggle";
+import {Frame} from "../frame";
 
 @Component({
   selector: 'app-controller',
@@ -16,10 +17,8 @@ export class ControllerComponent {
 
   private _sorter: Sorter = new SelectionSort();
   _disableButtons: boolean = false;
-  _transitions: Transition[] = [];
-  _backwardsTransitions: Transition[] = [];
-  _tranIndex: number = 0;
-  _backTranIndex: number = 0;
+  _frames: Frame[] = [];
+  _index: number = 0;
   _timer: number;
   _stepMode: boolean = false;
   _rewind: boolean = false;
@@ -43,8 +42,8 @@ export class ControllerComponent {
   }
 
   resetAnimation(): void {
-    this._tranIndex = 0;
-    this._transitions = [];
+    this._index = 0;
+    this._frames = [];
   }
 
   onSelectChange(event: MatSelectChange): void {
@@ -64,10 +63,8 @@ export class ControllerComponent {
     this._disableButtons = true;
     this.disableButtons.emit();
 
-    this._transitions = [];
-    this._transitions = this._arrayComponent.sort(this._sorter);
-    this._backwardsTransitions = this._transitions.slice();
-    this.tweakBackwardsTransitions();
+    this._frames = [];
+    this._frames = this._arrayComponent.sort(this._sorter);
 
     console.log("finished");
 
@@ -79,169 +76,46 @@ export class ControllerComponent {
         // done like this instead of calling the function directly so that
         // it can use the latest variables in animate()
         this.animate();
-        this._tranIndex++;
       }, this._speed);
     }
   }
 
-  tweakBackwardsTransitions(): void {
-    for (let i = 0; i < this._backwardsTransitions.length; i++) {
-      let index1 = this._backwardsTransitions[i].index1;
-      let index2 = this._backwardsTransitions[i].index2;
-      let state = this._backwardsTransitions[i].state;
-
-      if (state === 'swap')
-        this._backwardsTransitions[i].swapIndexes();
-
-      else if (state === 'set')
-        this._backwardsTransitions[i].changeToInitialHeight();
-
-      else if (state === 'comparing') {
-        if (index2 !== -1) {
-          this._backwardsTransitions.splice(i, 0, new Transition(index1, index2, 'initial', true));
-          i++;
-        }
-        else {
-          this._backwardsTransitions.splice(i, 0, new Transition(index1, -1, 'initial', true));
-          i++;
-        }
-      }
-
-      else if (state === 'sorted') {
-        this._backwardsTransitions.splice(i, 0, new Transition(index1, -1, 'initial', true));
-        i++;
-      }
-    }
-
-  }
-
   animate(): void {
-    if (this._tranIndex < this._transitions.length) {
-      let index1 = this._transitions[this._tranIndex].index1;
-      let index2 = this._transitions[this._tranIndex].index2;
-      let state = this._transitions[this._tranIndex].state;
+    if (this._index === 0)
+      this._index++;
 
-      if (state === 'swap') {
-        this._arrayComponent.swapBars(index1, index2);
-      }
+    if (this._index < this._frames.length) {
+      console.log(this._frames[this._index]);
+      let array = this._frames[this._index].array;
 
-      else if (state === 'set') {
-        this._arrayComponent.changeBarHeight(index1, index2);
-      }
-
-      else {
-        this._arrayComponent.changeBarStatus(index1, state);
-        if (index2 !== -1)
-          this._arrayComponent.changeBarStatus(index2, state);
-      }
-      console.log(this._tranIndex);
-      console.log(this._transitions[this._tranIndex]);
+      this._frames[this._index].changes.forEach(i => {
+        this._arrayComponent.changeBarStatus(i, array[i].state);
+        this._arrayComponent.changeBarHeight(i, array[i].height);
+      });
+      this._index++;
     }
     else {
-      //this._tranIndex = 0;
       if (!this._stepMode)
         this.stop();
     }
   }
 
   animateBackwards(): void {
-    if (this._backTranIndex >= 0) {
-      let index1 = this._backwardsTransitions[this._backTranIndex].index1;
-      let index2 = this._backwardsTransitions[this._backTranIndex].index2;
-      let state = this._backwardsTransitions[this._backTranIndex].state;
+    if (this._index === this._frames.length)
+      this._index--;
 
-      if (state === 'swap') {
-        this._arrayComponent.swapBars(index2, index1);
-      }
+    if (this._index > 0) {
+      let array = this._frames[this._index - 1].array;
 
-      else if (state === 'set') {
-        this._arrayComponent.changeBarHeight(index1, index2);
-      }
-
-      else if (state === 'comparing') {
-        this._arrayComponent.changeBarStatus(index1, state);
-        if (index2 !== -1) {
-          this._arrayComponent.changeBarStatus(index2, state);
-        }
-      }
-      else {
-        this._arrayComponent.changeBarStatus(index1, state);
-        if (index2 !== -1)
-          this._arrayComponent.changeBarStatus(index2, state);
-      }
-      console.log(this._backTranIndex);
-      console.log(this._backwardsTransitions[this._backTranIndex]);
+      this._frames[this._index].changes.forEach(i => {
+        this._arrayComponent.changeBarStatus(i, array[i].state);
+        this._arrayComponent.changeBarHeight(i, array[i].height);
+      })
+      this._index--;
     }
     else {
-      //this._tranIndex = 0;
       if (!this._stepMode)
         this.stop();
-    }
-  }
-
-  // animateBackwards(): void {
-  //   if (this._tranIndex >= 0) {
-  //     let index1 = this._transitions[this._tranIndex].index1;
-  //     let index2 = this._transitions[this._tranIndex].index2;
-  //     let state = this._transitions[this._tranIndex].state;
-  //
-  //     if (state === 'swap') {
-  //       this._arrayComponent.swapBars(index2, index1);
-  //     }
-  //
-  //     else if (state === 'set') {
-  //       let initialHeight = this._transitions[this._tranIndex].initialHeight;
-  //       this._arrayComponent.changeBarHeight(index1, initialHeight);
-  //     }
-  //
-  //     else if (state === 'comparing') {
-  //       this._arrayComponent.changeBarStatus(index1, state);
-  //       if (index2 !== -1) {
-  //         this._arrayComponent.changeBarStatus(index2, state);
-  //         this._transitions.splice(this._tranIndex - 1, 0, new Transition(index1, index2, 'initial', true));
-  //       }
-  //       else
-  //         this._transitions.splice(this._tranIndex - 1, 0, new Transition(index1, -1, 'initial', true));
-  //     }
-  //     else {
-  //       this._arrayComponent.changeBarStatus(index1, state);
-  //       if (index2 !== -1)
-  //         this._arrayComponent.changeBarStatus(index2, state);
-  //     }
-  //     console.log(this._tranIndex);
-  //     console.log(this._transitions[this._tranIndex]);
-  //   }
-  //   else {
-  //     //this._tranIndex = 0;
-  //     if (!this._stepMode)
-  //       this.stop();
-  //   }
-  // }
-
-  increaseIndexes(): void {
-    if (this._tranIndex < this._transitions.length - 1) {
-      this._tranIndex++;
-
-      if (this._backwardsTransitions[this._backTranIndex].backwards) {
-        while (this._backwardsTransitions[this._backTranIndex].backwards) {
-          this._backTranIndex++;
-        }
-      } else
-        this._backTranIndex++;
-    }
-  }
-
-  decreaseIndexes(): void {
-    if (this._backTranIndex >= 1) {
-
-      if (this._backwardsTransitions[this._backTranIndex].backwards) {
-        while (this._backwardsTransitions[this._backTranIndex].backwards) {
-          this._backTranIndex--;
-        }
-      } else {
-        this._tranIndex--;
-        this._backTranIndex--;
-      }
     }
   }
 
@@ -256,7 +130,6 @@ export class ControllerComponent {
     this.disableButtons.emit();
     this._timer = setInterval(() => {
       this.animate();
-      this._tranIndex++;
     }, this._speed);
   }
 
@@ -265,20 +138,24 @@ export class ControllerComponent {
     clearInterval(this._timer);
     this._timer = setInterval(() => {
       this.animateBackwards();
-      this._tranIndex--;
     }, this._speed);
   }
-
-  next(): void {
-    this.increaseIndexes();
-    this.animate();
-  }
-
-  previous(): void {
-    this.animateBackwards();
-    this.decreaseIndexes();
-  }
+  //
+  // next(): void {
+  //   if (this._index < this._frames.length - 1) {
+  //     this._index++;
+  //     this.animate();
+  //   }
+  // }
+  //
+  // previous(): void {
+  //   if (this._index > 0) {
+  //     this.animateBackwards();
+  //     this._index--;
+  //   }
+  // }
 
   // IMPLEMENTAR TEMPO QUE DEMOROU A CORRER
   // BUGS COM SEQUENCIA DE SORT, RESET, STOP, RESUME
+  // KEYBINDS TO CONTROL
 }

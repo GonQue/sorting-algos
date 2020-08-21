@@ -13,11 +13,11 @@
     <mat-icon>fast_rewind</mat-icon>
   </button>
 
-  <button mat-fab (click)="sort()" *ngIf="_tranIndex === 0">
+  <button mat-fab (click)="sort()" *ngIf="_index === 0">
     Sort
   </button>
 
-  <button mat-fab *ngIf="_disableButtons === false && _tranIndex !== 0" (click)="resume()">
+  <button mat-fab *ngIf="_disableButtons === false && _index !== 0" (click)="resume()">
     <mat-icon>play_arrow</mat-icon>
   </button>
 
@@ -27,11 +27,11 @@
 </div>
 
 <ng-template #stepButtons>
-  <button mat-fab *ngIf="_transitions.length === 0" (click)="sort()">Sort</button>
-  <button mat-fab (click)="previous()">
+  <button mat-fab *ngIf="_frames.length === 0" (click)="sort()">Sort</button>
+  <button mat-fab (click)="animateBackwards()">
     <mat-icon>skip_previous</mat-icon>
   </button>
-  <button mat-fab (click)="next()">
+  <button mat-fab (click)="animate()">
     <mat-icon>skip_next</mat-icon>
   </button>
 </ng-template>

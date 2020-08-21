@@ -14,6 +14,9 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
       state('minimum', style({
         backgroundColor: 'yellow',
       })),
+      state('highlight', style({
+        backgroundColor: 'red',
+      })),
       state('sorted', style({
         backgroundColor: 'green',
       })),

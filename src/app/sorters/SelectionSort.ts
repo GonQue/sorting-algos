@@ -1,6 +1,3 @@
-import {BarComponent} from "../components/bar/bar.component";
-import {Transition} from "../components/transition";
-import {Sort} from "@angular/material/sort";
 import {Sorter} from "./Sorter";
 import {Frame} from "../components/frame";
 import {Bar} from "../components/bar";

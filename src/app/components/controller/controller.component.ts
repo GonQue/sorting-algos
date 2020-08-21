@@ -88,10 +88,22 @@ export class ControllerComponent {
       console.log(this._frames[this._index]);
       let array = this._frames[this._index].array;
 
-      this._frames[this._index].changes.forEach(i => {
-        this._arrayComponent.changeBarStatus(i, array[i].state);
-        this._arrayComponent.changeBarHeight(i, array[i].height);
-      });
+      if (this._frames[this._index].animated && !this._stepMode) {
+        let changes = this._frames[this._index].changes;
+
+        for (let i = 0; i < changes.length; i++) {
+          setTimeout(() => {
+            this._arrayComponent.changeBarStatus(changes[i], array[changes[i]].state);
+            this._arrayComponent.changeBarHeight(changes[i], array[changes[i]].height);
+          }, i * (this._speed / changes.length));
+        }
+      }
+      else {
+        this._frames[this._index].changes.forEach(i => {
+          this._arrayComponent.changeBarStatus(i, array[i].state);
+          this._arrayComponent.changeBarHeight(i, array[i].height);
+        });
+      }
       this._index++;
     }
     else {

@@ -2,6 +2,7 @@ import {Bar} from "../components/bar";
 import {Sorter} from "./Sorter";
 import {SelectionSort} from "./SelectionSort";
 import {InsertionSort} from "./InsertionSort";
+import {BubbleSort} from "./BubbleSort";
 
 describe('Sorting Algorithms', () => {
   const iterations = 100, arrayElements = 100;
@@ -53,6 +54,12 @@ describe('Sorting Algorithms', () => {
 
   it('Insertion Sort', () => {
     let sorter = new InsertionSort();
+    let sortedArrays = compare(sorter);
+    expect(sortedArrays).toBe(iterations);
+  });
+
+  it('Bubble Sort', () => {
+    let sorter = new BubbleSort();
     let sortedArrays = compare(sorter);
     expect(sortedArrays).toBe(iterations);
   });

@@ -7,6 +7,7 @@ import {InsertionSort} from "../../sorters/InsertionSort";
 import {Transition} from "../transition";
 import {MatSlideToggleChange} from "@angular/material/slide-toggle";
 import {Frame} from "../frame";
+import {BubbleSort} from "../../sorters/BubbleSort";
 
 @Component({
   selector: 'app-controller',
@@ -51,6 +52,8 @@ export class ControllerComponent {
       this._sorter = new SelectionSort();
     else if (event.value === "Insertion Sort")
       this._sorter = new InsertionSort();
+    else if (event.value === "Bubble Sort")
+      this._sorter = new BubbleSort();
     else
       window.alert("ERROR");
   }

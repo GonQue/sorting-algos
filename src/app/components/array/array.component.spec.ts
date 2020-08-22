@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ArrayComponent } from './array.component';
+import {BarDirective} from "../bar/bar-host.directive";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 describe('ArrayComponent', () => {
   let component: ArrayComponent;
@@ -8,7 +10,8 @@ describe('ArrayComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ArrayComponent ]
+      imports: [ BrowserAnimationsModule],
+      declarations: [ ArrayComponent, BarDirective ]
     })
     .compileComponents();
   }));

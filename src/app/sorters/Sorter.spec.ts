@@ -3,6 +3,7 @@ import {Sorter} from "./Sorter";
 import {SelectionSort} from "./SelectionSort";
 import {InsertionSort} from "./InsertionSort";
 import {BubbleSort} from "./BubbleSort";
+import {ShellSort} from "./ShellSort";
 
 describe('Sorting Algorithms', () => {
   const iterations = 100, arrayElements = 100;
@@ -60,6 +61,12 @@ describe('Sorting Algorithms', () => {
 
   it('Bubble Sort', () => {
     let sorter = new BubbleSort();
+    let sortedArrays = compare(sorter);
+    expect(sortedArrays).toBe(iterations);
+  });
+
+  it('Shell Sort', () => {
+    let sorter = new ShellSort();
     let sortedArrays = compare(sorter);
     expect(sortedArrays).toBe(iterations);
   });

@@ -49,7 +49,6 @@ export class BubbleSort extends Sorter {
         frames.push(new Frame(frameArray, [i], false));
       }
     }
-    array.forEach(element => console.log(element.height));
     return frames;
   }
 }

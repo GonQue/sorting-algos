@@ -8,6 +8,7 @@ import {Transition} from "../transition";
 import {MatSlideToggleChange} from "@angular/material/slide-toggle";
 import {Frame} from "../frame";
 import {BubbleSort} from "../../sorters/BubbleSort";
+import {ShellSort} from "../../sorters/ShellSort";
 
 @Component({
   selector: 'app-controller',
@@ -54,6 +55,8 @@ export class ControllerComponent {
       this._sorter = new InsertionSort();
     else if (event.value === "Bubble Sort")
       this._sorter = new BubbleSort();
+    else if (event.value === "Shell Sort")
+      this._sorter = new ShellSort();
     else
       window.alert("ERROR");
   }
@@ -88,7 +91,6 @@ export class ControllerComponent {
       this._index++;
 
     if (this._index < this._frames.length) {
-      console.log(this._frames[this._index]);
       let array = this._frames[this._index].array;
 
       if (this._frames[this._index].animated && !this._stepMode) {
@@ -122,10 +124,23 @@ export class ControllerComponent {
     if (this._index > 0) {
       let array = this._frames[this._index - 1].array;
 
-      this._frames[this._index].changes.forEach(i => {
-        this._arrayComponent.changeBarStatus(i, array[i].state);
-        this._arrayComponent.changeBarHeight(i, array[i].height);
-      })
+      if (this._frames[this._index].animated && !this._stepMode) {
+        let changes = this._frames[this._index].changes;
+
+        for (let i = changes.length - 1; i >= 0; i--) {
+          setTimeout(() => {
+            this._arrayComponent.changeBarStatus(changes[i], array[changes[i]].state);
+            this._arrayComponent.changeBarHeight(changes[i], array[changes[i]].height);
+          }, (i - changes.length - 1) * (this._speed / changes.length));
+        }
+      }
+
+      else {
+        this._frames[this._index].changes.forEach(i => {
+          this._arrayComponent.changeBarStatus(i, array[i].state);
+          this._arrayComponent.changeBarHeight(i, array[i].height);
+        })
+      }
       this._index--;
     }
     else {

@@ -48,8 +48,6 @@ export class SelectionSort extends Sorter{
         frames.push(new Frame(frameArray, [i, min], false));
       }
     }
-    frames[frames.length - 1].array.forEach(element => console.log(element.height));
-    console.log('There are ' + frames.length + ' frames.');
     return frames;
   }
 }

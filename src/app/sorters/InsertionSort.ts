@@ -78,7 +78,6 @@ export class InsertionSort extends Sorter {
       frameArray[i].state = 'sorted';
     }
     frames.push(new Frame(frameArray, changes, true));
-    array.forEach(element => console.log(element.height));
     return frames;
   }
 }

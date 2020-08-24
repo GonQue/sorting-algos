@@ -20,9 +20,11 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
       state('sorted', style({
         backgroundColor: 'green',
       })),
+      state('zone', style({
+        backgroundColor: 'orange',
+      })),
       transition('* => *', [
         animate('10ms'),
-
       ])
     ])
   ],

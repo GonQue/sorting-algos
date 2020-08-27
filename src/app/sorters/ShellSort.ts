@@ -1,9 +1,9 @@
 import {Sorter} from "./Sorter";
 import {Frame} from "../components/frame";
 import {Bar} from "../components/bar";
-import {last} from "rxjs/operators";
 
 export class ShellSort extends Sorter {
+
   sort(array: Bar[], l: number, r: number) : Frame[] {
     let i, h, frames = [], frameArray = this.copy(array), lastJ = 1, multiples = [];
     frames.push(new Frame(array, [], false));
@@ -61,13 +61,12 @@ export class ShellSort extends Sorter {
     }
     frameArray = this.copy(frameArray);
     let changes = [];
-    for (i = 0; i <= r; i++) {
+    for (let i = 0; i <= r; i++) {
       changes.push(i);
       frameArray[i].state = 'sorted';
     }
     frames.push(new Frame(frameArray, changes, true));
 
-    frames.push(new Frame(frameArray, [], false));
     return frames;
   }
 }

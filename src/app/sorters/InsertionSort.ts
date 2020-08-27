@@ -3,6 +3,7 @@ import {Frame} from "../components/frame";
 import {Bar} from "../components/bar";
 
 export class InsertionSort extends Sorter {
+
   sort(array: Bar[], l: number, r: number) : Frame[] {
     let i, frames = [], frameArray = this.copy(array);
     frames.push(new Frame(array, [], false));

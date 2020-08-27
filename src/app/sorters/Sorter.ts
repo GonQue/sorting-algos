@@ -2,6 +2,7 @@ import {Frame} from "../components/frame";
 import {Bar} from "../components/bar";
 
 export abstract class Sorter {
+
   abstract sort(array: Bar[], l: number, r: number): Frame[];
 
   less(a: Bar, b: Bar): boolean {

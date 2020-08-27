@@ -4,11 +4,11 @@ import {ArrayComponent} from "../array/array.component";
 import {Sorter} from "../../sorters/Sorter";
 import {SelectionSort} from "../../sorters/SelectionSort";
 import {InsertionSort} from "../../sorters/InsertionSort";
-import {Transition} from "../transition";
 import {MatSlideToggleChange} from "@angular/material/slide-toggle";
 import {Frame} from "../frame";
 import {BubbleSort} from "../../sorters/BubbleSort";
 import {ShellSort} from "../../sorters/ShellSort";
+import {QuickSort} from "../../sorters/QuickSort";
 
 @Component({
   selector: 'app-controller',
@@ -57,6 +57,8 @@ export class ControllerComponent {
       this._sorter = new BubbleSort();
     else if (event.value === "Shell Sort")
       this._sorter = new ShellSort();
+    else if (event.value === "Quick Sort")
+      this._sorter = new QuickSort();
     else
       window.alert("ERROR");
   }
@@ -92,6 +94,7 @@ export class ControllerComponent {
 
     if (this._index < this._frames.length) {
       let array = this._frames[this._index].array;
+      console.log(this._frames[this._index]);
 
       if (this._frames[this._index].animated && !this._stepMode) {
         let changes = this._frames[this._index].changes;

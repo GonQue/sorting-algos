@@ -3,6 +3,7 @@ import {Frame} from "../components/frame";
 import {Bar} from "../components/bar";
 
 export class SelectionSort extends Sorter{
+
   sort(array: Bar[], l: number, r: number) : Frame[] {
     let i, j, frames = [], frameArray = this.copy(array);
     frames.push(new Frame(array, [], false ));
@@ -33,9 +34,7 @@ export class SelectionSort extends Sorter{
         frames.push(new Frame(frameArray, changes, false));
       }
       frameArray = this.copy(frameArray);
-      console.log('before:' + frameArray[i].height + " ; " + frameArray[min].height);
       this.swap(frameArray, i, min);
-      console.log('after:' + frameArray[i].height + " ; " + frameArray[min].height);
 
       if (i === r - 1)  { // last iteration, everything is sorted
         frameArray[i].state = 'sorted';

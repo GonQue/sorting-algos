@@ -3,6 +3,7 @@ import {Frame} from "../components/frame";
 import {Bar} from "../components/bar";
 
 export class BubbleSort extends Sorter {
+
   sort(array: Bar[], l: number, r: number) : Frame[] {
     let i, j, frames = [], frameArray = this.copy(array), done;
     frames.push(new Frame(array, [], false));

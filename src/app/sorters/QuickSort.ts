@@ -18,11 +18,11 @@ export class QuickSort extends Sorter{
       this._frameArray[i].state = 'sorted';
     }
     frames.push(new Frame(this._frameArray, changes, true));
-    
+
     return frames;
   }
 
-  auxSort(l: number, r: number, frames: Frame[]) {
+  auxSort(l: number, r: number, frames: Frame[]): void {
     let i;
     this._frameArray = this.copy(this._frameArray);
 

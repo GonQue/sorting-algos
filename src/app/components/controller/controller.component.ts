@@ -9,6 +9,7 @@ import {Frame} from "../frame";
 import {BubbleSort} from "../../sorters/BubbleSort";
 import {ShellSort} from "../../sorters/ShellSort";
 import {QuickSort} from "../../sorters/QuickSort";
+import {MergeSort} from "../../sorters/MergeSort";
 
 @Component({
   selector: 'app-controller',
@@ -59,6 +60,8 @@ export class ControllerComponent {
       this._sorter = new ShellSort();
     else if (event.value === "Quick Sort")
       this._sorter = new QuickSort();
+    else if (event.value === "Merge Sort")
+      this._sorter = new MergeSort();
     else
       window.alert("ERROR");
   }

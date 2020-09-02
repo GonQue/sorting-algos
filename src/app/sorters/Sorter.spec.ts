@@ -5,6 +5,7 @@ import {InsertionSort} from "./InsertionSort";
 import {BubbleSort} from "./BubbleSort";
 import {ShellSort} from "./ShellSort";
 import {QuickSort} from "./QuickSort";
+import {MergeSort} from "./MergeSort";
 
 describe('Sorting Algorithms', () => {
   const iterations = 100, arrayElements = 100;
@@ -74,6 +75,12 @@ describe('Sorting Algorithms', () => {
 
   it('Quick Sort', () => {
     let sorter = new QuickSort();
+    let sortedArrays = compare(sorter);
+    expect(sortedArrays).toBe(iterations);
+  });
+
+  it('Merge Sort', () => {
+    let sorter = new MergeSort();
     let sortedArrays = compare(sorter);
     expect(sortedArrays).toBe(iterations);
   });

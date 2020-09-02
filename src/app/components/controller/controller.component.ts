@@ -10,6 +10,7 @@ import {BubbleSort} from "../../sorters/BubbleSort";
 import {ShellSort} from "../../sorters/ShellSort";
 import {QuickSort} from "../../sorters/QuickSort";
 import {MergeSort} from "../../sorters/MergeSort";
+import {HeapSort} from "../../sorters/HeapSort";
 
 @Component({
   selector: 'app-controller',
@@ -62,6 +63,8 @@ export class ControllerComponent {
       this._sorter = new QuickSort();
     else if (event.value === "Merge Sort")
       this._sorter = new MergeSort();
+    else if (event.value === "Heap Sort")
+      this._sorter = new HeapSort();
     else
       window.alert("ERROR");
   }

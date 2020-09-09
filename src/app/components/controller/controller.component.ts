@@ -26,6 +26,10 @@ export class ControllerComponent {
   _timer: number;
   _stepMode: boolean = false;
   _rewind: boolean = false;
+  _middleBtnState: string = 'sort';
+  _backwardsBtnDisabled: boolean = true;
+  _middleBtnDisabled: boolean = false;
+  _forwardBtnDisabled: boolean = true;
 
   private _arrayComponent: ArrayComponent;
 
@@ -48,9 +52,15 @@ export class ControllerComponent {
   resetAnimation(): void {
     this._index = 0;
     this._frames = [];
+    this._middleBtnState = 'sort';
+    this._middleBtnDisabled = false;
+    this._backwardsBtnDisabled = true;
+    this._forwardBtnDisabled = true;
+    this._rewind = false;
   }
 
   onSelectChange(event: MatSelectChange): void {
+    this._middleBtnState = 'sort';
     if (event.value === "Selection Sort")
       this._sorter = new SelectionSort();
     else if (event.value === "Insertion Sort")
@@ -67,25 +77,43 @@ export class ControllerComponent {
       this._sorter = new HeapSort();
     else
       window.alert("ERROR");
+
+    this.resetAnimation();
+    this._arrayComponent.restartArray();
   }
 
   onToggleChange(event: MatSlideToggleChange): void {
     this._stepMode = event.checked;
+
+    if (this._stepMode) {
+      if (this._frames.length !== 0) {
+        this._middleBtnDisabled = true;
+        this._forwardBtnDisabled = false;
+        this._backwardsBtnDisabled = false;
+      }
+
+      else {
+        this._forwardBtnDisabled = true;
+        this._backwardsBtnDisabled = true;
+      }
+    }
   }
 
   sort(): void {
-    this._disableButtons = true;
-    this.disableButtons.emit();
-
+    this._middleBtnState = 'pause';
     this._frames = [];
     this._frames = this._arrayComponent.sort(this._sorter);
 
-    console.log("finished");
-
-    if (this._stepMode)
+    if (this._stepMode) {
+      this._backwardsBtnDisabled = false;
+      this._middleBtnDisabled = true;
+      this._forwardBtnDisabled = false;
       this.animate();
+    }
 
     else {
+      this._disableButtons = true;
+      this.disableButtons.emit();
       this._timer = setInterval(() => {
         // done like this instead of calling the function directly so that
         // it can use the latest variables in animate()
@@ -121,8 +149,10 @@ export class ControllerComponent {
       this._index++;
     }
     else {
-      if (!this._stepMode)
+      if (!this._stepMode) {
+        this._middleBtnDisabled = true;
         this.stop();
+      }
     }
   }
 
@@ -153,46 +183,84 @@ export class ControllerComponent {
       this._index--;
     }
     else {
-      if (!this._stepMode)
+      if (!this._stepMode) {
+        this._middleBtnDisabled = true;
         this.stop();
+      }
     }
   }
 
   stop(): void {
+    this._middleBtnState = 'play';
     this._disableButtons = false;
     this.enableButtons.emit();
     clearInterval(this._timer);
   }
 
   resume(): void {
+    this._middleBtnState = 'pause';
     this._disableButtons = true;
     this.disableButtons.emit();
+    clearInterval(this._timer);
     this._timer = setInterval(() => {
-      this.animate();
+      if (this._rewind) {
+        this.animateBackwards();
+      }
+      else
+        this.animate();
     }, this._speed);
   }
 
   rewind(): void {
-    this._rewind == true;
+    this._rewind = true;
     clearInterval(this._timer);
     this._timer = setInterval(() => {
       this.animateBackwards();
     }, this._speed);
   }
-  //
-  // next(): void {
-  //   if (this._index < this._frames.length - 1) {
-  //     this._index++;
-  //     this.animate();
-  //   }
-  // }
-  //
-  // previous(): void {
-  //   if (this._index > 0) {
-  //     this.animateBackwards();
-  //     this._index--;
-  //   }
-  // }
+
+  backwardsButton(): void {
+    if (this._stepMode) {
+      this.animateBackwards();
+    }
+    else {
+      this._disableButtons = true;
+      this.disableButtons.emit();
+      this._rewind = true;
+      this._backwardsBtnDisabled = true;
+      this._middleBtnDisabled = false;
+      this._forwardBtnDisabled = false;
+      this.rewind();
+      this._middleBtnState = 'pause';
+    }
+  }
+
+  middleButton(): void {
+    if (this._middleBtnState === 'sort') {
+      this._backwardsBtnDisabled = false;
+      this.sort();
+    }
+    else if (this._middleBtnState === 'play') {
+      this.resume();
+    }
+    else {
+      this.stop();
+    }
+  }
+
+  forwardButton(): void {
+    if (this._stepMode) {
+      this.animate();
+    }
+    else {
+      this._rewind = false;
+      this.resume();
+      this._middleBtnState = 'pause';
+      this._middleBtnDisabled = false;
+      this._backwardsBtnDisabled = false;
+      this._forwardBtnDisabled = true;
+    }
+  }
 
   // IMPLEMENTAR TEMPO QUE DEMOROU A CORRER
   // BUGS COM SEQUENCIA DE SORT, RESET, STOP, RESUME

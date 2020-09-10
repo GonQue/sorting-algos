@@ -1,17 +1,4 @@
-<mat-form-field id="algoSelect" appearance="fill">
-  <mat-label>Sorting Algorithm</mat-label>
-  <mat-select (selectionChange)="onSelectChange($event)" value="Selection Sort" [disabled]="_disableButtons">
-    <mat-option value="Selection Sort">Selection Sort</mat-option>
-    <mat-option value="Insertion Sort">Insertion Sort</mat-option>
-    <mat-option value="Bubble Sort">Bubble Sort</mat-option>
-    <mat-option value="Shell Sort">Shell Sort</mat-option>
-    <mat-option value="Quick Sort">Quick Sort</mat-option>
-    <mat-option value="Merge Sort">Merge Sort</mat-option>
-    <mat-option value="Heap Sort">Heap Sort</mat-option>
-  </mat-select>
-</mat-form-field>
-
-<div id="buttons">
+<div>
   <button id="backBtn"  class="arrowBtn" mat-fab (click)="backwardsButton()" [disabled]="this._backwardsBtnDisabled">
     <mat-icon *ngIf="!_stepMode">fast_rewind</mat-icon>
     <mat-icon *ngIf="_stepMode">skip_previous</mat-icon>
@@ -29,7 +16,7 @@
   </button>
 </div>
 
-<mat-slide-toggle id="stepMode" (change)="onToggleChange($event)">Step Mode</mat-slide-toggle>
+
 
 <!-- <div *ngIf="!_stepMode; else stepButtons">
   <button mat-fab (click)="rewind()">

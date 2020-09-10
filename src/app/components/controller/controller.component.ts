@@ -21,11 +21,11 @@ export class ControllerComponent {
 
   private _sorter: Sorter = new SelectionSort();
   _disableButtons: boolean = false;
-  _frames: Frame[] = [];
-  _index: number = 0;
-  _timer: number;
+  private _frames: Frame[] = [];
+  private _index: number = 0;
+  private _timer: number;
   _stepMode: boolean = false;
-  _rewind: boolean = false;
+  private _rewind: boolean = false;
   _middleBtnState: string = 'sort';
   _backwardsBtnDisabled: boolean = true;
   _middleBtnDisabled: boolean = false;
@@ -41,7 +41,6 @@ export class ControllerComponent {
 
   @Output()
   enableButtons = new EventEmitter();
-  // disableButtons.emit()
 
   constructor() { }
 
@@ -59,44 +58,28 @@ export class ControllerComponent {
     this._rewind = false;
   }
 
-  onSelectChange(event: MatSelectChange): void {
+  changeSorter(sorter: Sorter): void {
     this._middleBtnState = 'sort';
-    if (event.value === "Selection Sort")
-      this._sorter = new SelectionSort();
-    else if (event.value === "Insertion Sort")
-      this._sorter = new InsertionSort();
-    else if (event.value === "Bubble Sort")
-      this._sorter = new BubbleSort();
-    else if (event.value === "Shell Sort")
-      this._sorter = new ShellSort();
-    else if (event.value === "Quick Sort")
-      this._sorter = new QuickSort();
-    else if (event.value === "Merge Sort")
-      this._sorter = new MergeSort();
-    else if (event.value === "Heap Sort")
-      this._sorter = new HeapSort();
-    else
-      window.alert("ERROR");
-
+    this._sorter = sorter;
     this.resetAnimation();
     this._arrayComponent.restartArray();
   }
 
-  onToggleChange(event: MatSlideToggleChange): void {
-    this._stepMode = event.checked;
+  changeStepMode(mode: boolean): void {
+    this._stepMode = mode;
 
-    if (this._stepMode) {
-      if (this._frames.length !== 0) {
+    // when the animation ran before activating step mode
+    if (this._stepMode && this._frames.length !== 0) {
         this._middleBtnDisabled = true;
         this._forwardBtnDisabled = false;
         this._backwardsBtnDisabled = false;
-      }
-
-      else {
-        this._forwardBtnDisabled = true;
-        this._backwardsBtnDisabled = true;
-      }
     }
+
+    if (this._index === 0)
+      this._backwardsBtnDisabled = true;
+
+    if (this._index === this._frames.length)
+      this._forwardBtnDisabled = true;
   }
 
   sort(): void {
@@ -222,6 +205,10 @@ export class ControllerComponent {
   backwardsButton(): void {
     if (this._stepMode) {
       this.animateBackwards();
+      this._forwardBtnDisabled = false;
+      if (this._index === 0) {
+        this._backwardsBtnDisabled = true;
+      }
     }
     else {
       this._disableButtons = true;
@@ -251,6 +238,9 @@ export class ControllerComponent {
   forwardButton(): void {
     if (this._stepMode) {
       this.animate();
+      this._backwardsBtnDisabled = false;
+      if (this._index === this._frames.length)
+        this._forwardBtnDisabled = true;
     }
     else {
       this._rewind = false;

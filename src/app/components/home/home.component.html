@@ -1,0 +1,56 @@
+<div id="topBar">
+  <h1 class="mat-headline">Sorting Algorithm</h1>
+  <mat-form-field id="algoSelect" appearance="fill">
+    <mat-label>Sorting Algorithm</mat-label>
+    <mat-select (selectionChange)="onSelectChange($event)" value="Selection Sort" [disabled]="_disableButtons">
+      <mat-option value="Selection Sort">Selection Sort</mat-option>
+      <mat-option value="Insertion Sort">Insertion Sort</mat-option>
+      <mat-option value="Bubble Sort">Bubble Sort</mat-option>
+      <mat-option value="Shell Sort">Shell Sort</mat-option>
+      <mat-option value="Quick Sort">Quick Sort</mat-option>
+      <mat-option value="Merge Sort">Merge Sort</mat-option>
+      <mat-option value="Heap Sort">Heap Sort</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button class="topBarButton" mat-raised-button [disabled]="_disableButtons" (click)="generateNewArray()">Generate new array</button>
+  <button class="topBarButton "mat-raised-button [disabled]="_disableButtons" (click)="restartArray()">Restart array</button>
+  <div class="topBarSlider">
+    <span class="sliderValue"> Size: {{ _size }} </span>
+    <mat-slider
+      [value]="5"
+      [min]="2"
+      [max]="100"
+      [disabled]="_disableButtons"
+      (input)="onSizeSliderChange($event)"
+    >
+    </mat-slider>
+  </div>
+  <div class="topBarSlider">
+    <span class="sliderValue"> Speed: {{ _speed + "ms"}} </span>
+    <mat-slider
+      [value]="10"
+      [min]="0.1"
+      [max]="100"
+      [step]="0.1"
+      [disabled]="_disableButtons"
+      (input)="onSpeedSliderChange($event)"
+    >
+    </mat-slider>
+  </div>
+  <mat-slide-toggle id="stepMode" (change)="onToggleChange($event)">Step Mode</mat-slide-toggle>
+</div>
+
+<div id="body">
+  <app-array></app-array>
+
+  <app-controller
+    (disableButtons)="onDisableButtons()"
+    (enableButtons)="onEnableButtons()"
+    [_speed]="_speed">
+  </app-controller>
+</div>
+
+<div id="footer">
+
+</div>

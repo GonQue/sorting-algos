@@ -1,0 +1,11 @@
+#barArray {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: flex-end; // to invert bars
+  height: 80%;
+  width: 90%;
+  border-bottom: 2px solid #757575;
+  margin: 0 auto; // to center bars
+}

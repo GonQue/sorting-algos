@@ -1,0 +1,47 @@
+<div>
+  <button id="backBtn"  class="arrowBtn" mat-fab (click)="backwardsButton()" [disabled]="this._backwardsBtnDisabled">
+    <mat-icon *ngIf="!_stepMode">fast_rewind</mat-icon>
+    <mat-icon *ngIf="_stepMode">skip_previous</mat-icon>
+  </button>
+
+  <button id="middleBtn" mat-fab (click)="middleButton()" [disabled]="this._middleBtnDisabled">
+    <span *ngIf="this._middleBtnState === 'sort'">Sort</span>
+    <mat-icon *ngIf="this._middleBtnState === 'play'">play_arrow</mat-icon>
+    <mat-icon *ngIf="this._middleBtnState === 'pause'">pause</mat-icon>
+  </button>
+
+  <button id="forwardBtn" class="arrowBtn" mat-fab (click)="forwardButton()" [disabled]="this._forwardBtnDisabled">
+    <mat-icon *ngIf="!_stepMode">fast_forward</mat-icon>
+    <mat-icon *ngIf="_stepMode">skip_next</mat-icon>
+  </button>
+</div>
+
+
+
+<!-- <div *ngIf="!_stepMode; else stepButtons">
+  <button mat-fab (click)="rewind()">
+    <mat-icon>fast_rewind</mat-icon>
+  </button>
+
+  <button mat-fab (click)="sort()" *ngIf="_index === 0">
+    Sort
+  </button>
+
+  <button mat-fab *ngIf="_disableButtons === false && _index !== 0" (click)="resume()">
+    <mat-icon>play_arrow</mat-icon>
+  </button>
+
+  <button mat-fab *ngIf="_disableButtons === true" (click)="stop()">
+    <mat-icon>pause</mat-icon>
+  </button>
+</div>
+
+<ng-template #stepButtons>
+  <button mat-fab *ngIf="_frames.length === 0" (click)="sort()">Sort</button>
+  <button mat-fab (click)="animateBackwards()">
+    <mat-icon>skip_previous</mat-icon>
+  </button>
+  <button mat-fab (click)="animate()">
+    <mat-icon>skip_next</mat-icon>
+  </button>
+</ng-template> -->

@@ -27,7 +27,7 @@
     </mat-slider>
   </div>
   <div class="topBarSlider">
-    <span class="sliderValue"> Speed: {{ _speed }} </span>
+    <span class="sliderValue"> Speed: {{ _speed + "ms"}} </span>
     <mat-slider
       [value]="10"
       [min]="0.1"
@@ -41,10 +41,16 @@
   <mat-slide-toggle id="stepMode" (change)="onToggleChange($event)">Step Mode</mat-slide-toggle>
 </div>
 
-<app-array></app-array>
+<div id="body">
+  <app-array></app-array>
 
-<app-controller
-  (disableButtons)="onDisableButtons()"
-  (enableButtons)="onEnableButtons()"
-  [_speed]="_speed">
-</app-controller>
+  <app-controller
+    (disableButtons)="onDisableButtons()"
+    (enableButtons)="onEnableButtons()"
+    [_speed]="_speed">
+  </app-controller>
+</div>
+
+<div id="footer">
+
+</div>

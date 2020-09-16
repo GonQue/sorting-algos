@@ -6,7 +6,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
   animations: [
     trigger('changeState', [
       state('initial', style({
-        backgroundColor: 'cyan'
+        backgroundColor: '#6ff9ff'
       })),
       state('comparing', style({
         backgroundColor: 'purple',
@@ -18,7 +18,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
         backgroundColor: 'yellow',
       })),
       state('highlight', style({
-        backgroundColor: 'red',
+        backgroundColor: '#EF233C',
       })),
       state('sorted', style({
         backgroundColor: 'green',

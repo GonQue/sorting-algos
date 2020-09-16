@@ -3,10 +3,9 @@
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: center;
-  align-items: flex-end; // para inverter barras
+  align-items: flex-end; // to invert bars
   height: 80%;
   width: 90%;
-  border: 2px solid white;
-  border-bottom-color: green;
-  margin: 0 auto;
+  border-bottom: 2px solid #757575;
+  margin: 0 auto; // to center bars
 }

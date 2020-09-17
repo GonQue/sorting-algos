@@ -2,6 +2,10 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
 import {ControllerComponent} from "../controller/controller.component";
+import {SorterInfoComponent} from "../sorter-info/sorter-info.component";
+import {ArrayComponent} from "../array/array.component";
+import {BarDirective} from "../bar/bar-host.directive";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -9,7 +13,8 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent, ControllerComponent ]
+      imports: [ BrowserAnimationsModule],
+      declarations: [ HomeComponent, ControllerComponent, SorterInfoComponent, ArrayComponent, BarDirective ]
     })
     .compileComponents();
   }));

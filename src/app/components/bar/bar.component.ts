@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {animate, state, style, transition, trigger} from "@angular/animations";
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-bar',
@@ -35,12 +35,12 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
   styleUrls: ['./bar.component.scss']
 })
 export class BarComponent {
-  @Input() _height : number;
+  @Input() _height: number;
 
-  _state : string = 'initial';
+  _state = 'initial';
 
   constructor() {
-    let max = 500, min = 5;
+    const max = 500, min = 5;
     this._height = Math.floor(Math.random() * (max - min + 1) ) + min;
   }
 

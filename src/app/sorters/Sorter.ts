@@ -1,9 +1,9 @@
-import {Frame} from "../components/frame";
-import {Bar} from "../components/bar";
+import {Frame} from '../components/frame';
+import {Bar} from '../components/bar';
 
 export abstract class Sorter {
   _complexity: string;
-  _comparisons: number = 0;
+  _comparisons: number= 0;
   _stable: boolean;
 
   abstract sort(array: Bar[], l: number, r: number): Frame[];
@@ -13,13 +13,13 @@ export abstract class Sorter {
   }
 
   swap(array: Bar[], i: number, j: number): void {
-    let temp = array[i].height;
+    const temp = array[i].height;
     array[i].height = array[j].height;
     array[j].height = temp;
   }
 
   copy(array: Bar[]): Bar[] {
-    let newArray = [];
+    const newArray = [];
     array.forEach(el => newArray.push(new Bar(el.height, el.state)));
     return newArray;
   }

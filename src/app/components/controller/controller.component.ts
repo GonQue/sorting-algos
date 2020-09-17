@@ -111,7 +111,6 @@ export class ControllerComponent {
 
     if (this._index < this._frames.length) {
       let array = this._frames[this._index].array;
-      console.log(this._frames[this._index]);
 
       if (this._frames[this._index].animated && !this._stepMode) {
         let changes = this._frames[this._index].changes;

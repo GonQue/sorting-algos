@@ -17,8 +17,6 @@ export class ShellSort extends Sorter {
     for (h = 1; h <= (r - l)/ 9; h = 3 * h + 1)
       ;
 
-    console.log(h);
-
     for (; h > 0; h = Math.round(h / 3)) {
       frameArray = this.copy(frameArray);
       for (i = l + h; i <= r; i++) {

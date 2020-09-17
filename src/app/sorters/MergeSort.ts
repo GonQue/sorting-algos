@@ -30,7 +30,6 @@ export class MergeSort extends Sorter{
 
   auxSort(l: number, r: number, frames: Frame[]): void {
     let m = Math.floor((r + l) / 2);
-    console.log(m);
     this._frameArray = this.copy(this._frameArray);
 
     if (r <= l)

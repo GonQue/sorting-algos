@@ -5,6 +5,12 @@ import {Bar} from "../components/bar";
 export class HeapSort extends Sorter{
   private _frameArray: Bar[] = [];
 
+  constructor() {
+    super();
+    this._complexity = "n log(n)";
+    this._stable = false;
+  }
+
   sort(array: Bar[], l: number, r: number): Frame[] {
     let frames = [];
     this._frameArray = this.copy(array) ;
@@ -49,6 +55,7 @@ export class HeapSort extends Sorter{
     ileft = l + this.left(k - l);
     iright = l + this.right(k - l);
 
+    this._comparisons++;
     if (ileft <= r && this.less(this._frameArray[largest], this._frameArray[ileft])) {
       this._frameArray = this.copy(this._frameArray);
       this._frameArray[largest].state = 'comparing';
@@ -62,6 +69,7 @@ export class HeapSort extends Sorter{
       largest = ileft;
     }
 
+    this._comparisons++;
     if (iright <= r && this.less(this._frameArray[largest], this._frameArray[iright])) {
       this._frameArray = this.copy(this._frameArray);
       this._frameArray[largest].state = 'comparing';

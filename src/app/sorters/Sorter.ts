@@ -2,6 +2,9 @@ import {Frame} from "../components/frame";
 import {Bar} from "../components/bar";
 
 export abstract class Sorter {
+  _complexity: string;
+  _comparisons: number = 0;
+  _stable: boolean;
 
   abstract sort(array: Bar[], l: number, r: number): Frame[];
 
@@ -19,5 +22,17 @@ export abstract class Sorter {
     let newArray = [];
     array.forEach(el => newArray.push(new Bar(el.height, el.state)));
     return newArray;
+  }
+
+  get complexity(): string {
+    return this._complexity;
+  }
+
+  get comparisons(): number {
+    return this._comparisons;
+  }
+
+  get stable(): boolean {
+    return this._stable;
   }
 }

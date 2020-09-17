@@ -4,6 +4,12 @@ import {Bar} from "../components/bar";
 
 export class BubbleSort extends Sorter {
 
+  constructor() {
+    super();
+    this._complexity = "n²";
+    this._stable = true;
+  }
+
   sort(array: Bar[], l: number, r: number) : Frame[] {
     let i, j, frames = [], frameArray = this.copy(array), done;
     frames.push(new Frame(array, [], false));
@@ -17,6 +23,7 @@ export class BubbleSort extends Sorter {
         frames.push(new Frame(frameArray, [j, j - 1], false));
 
         frameArray = this.copy(frameArray);
+        this._comparisons++;
         if (this.less(frameArray[j], frameArray[j - 1])) {
           done = false;
           frameArray[j].state = 'minimum';

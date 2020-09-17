@@ -5,6 +5,12 @@ import {Bar} from "../components/bar";
 export class MergeSort extends Sorter{
   private _frameArray: Bar[] = [];
 
+  constructor() {
+    super();
+    this._complexity = "n log(n)";
+    this._stable = true;
+  }
+
   sort(array: Bar[], l: number, r: number): Frame[] {
     let frames = [];
     this._frameArray = this.copy(array) ;
@@ -53,6 +59,7 @@ export class MergeSort extends Sorter{
       frames.push(new Frame(this._frameArray, [k], false));
       this._frameArray = this.copy(this._frameArray);
 
+      this._comparisons++;
       if (this.less(aux[j], aux[i])) {
         this._frameArray[k] = aux[j--];
       }

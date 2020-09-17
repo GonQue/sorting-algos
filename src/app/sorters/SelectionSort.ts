@@ -2,7 +2,13 @@ import {Sorter} from "./Sorter";
 import {Frame} from "../components/frame";
 import {Bar} from "../components/bar";
 
-export class SelectionSort extends Sorter{
+export class SelectionSort extends Sorter {
+
+  constructor() {
+    super();
+    this._complexity = "n²";
+    this._stable = false;
+  }
 
   sort(array: Bar[], l: number, r: number) : Frame[] {
     let i, j, frames = [], frameArray = this.copy(array);
@@ -20,6 +26,7 @@ export class SelectionSort extends Sorter{
         frames.push(new Frame(frameArray, [j, min], false));
 
         frameArray = this.copy(frameArray);
+        this._comparisons++;
         if (this.less(frameArray[j], frameArray[min])) {
           frameArray[min].state = 'initial';
           changes = [min, j];

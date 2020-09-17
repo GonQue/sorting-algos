@@ -14,6 +14,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import { SorterInfoComponent } from './components/sorter-info/sorter-info.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     BarDirective,
     HomeComponent,
     ControllerComponent,
+    SorterInfoComponent,
   ],
   imports: [
     BrowserModule,

@@ -29,12 +29,14 @@ export class HomeComponent implements AfterViewInit {
   _size: number = 5;
   _speed: number = 10;
   _disableButtons: boolean = false;
+  _sorter: Sorter = new SelectionSort();
 
   constructor() { }
 
   ngAfterViewInit(): void {
     // Done to avoid ExpressionChangedAfterItHasBeenCheckedError
     this._controllerComponent.arrayComponent = this._arrayComponent;
+    this._controllerComponent.changeSorter(this._sorter);
   }
 
   generateNewArray(): void {
@@ -66,25 +68,24 @@ export class HomeComponent implements AfterViewInit {
   }
 
   onSelectChange(event: MatSelectChange): void {
-    let sorter;
     if (event.value === "Selection Sort")
-      sorter = new SelectionSort();
+      this._sorter = new SelectionSort();
     else if (event.value === "Insertion Sort")
-      sorter = new InsertionSort();
+      this._sorter = new InsertionSort();
     else if (event.value === "Bubble Sort")
-      sorter = new BubbleSort();
+      this._sorter = new BubbleSort();
     else if (event.value === "Shell Sort")
-      sorter = new ShellSort();
+      this._sorter = new ShellSort();
     else if (event.value === "Quick Sort")
-      sorter = new QuickSort();
+      this._sorter = new QuickSort();
     else if (event.value === "Merge Sort")
-      sorter = new MergeSort();
+      this._sorter = new MergeSort();
     else if (event.value === "Heap Sort")
-      sorter = new HeapSort();
+      this._sorter = new HeapSort();
     else
       window.alert("ERROR");
 
-    this._controllerComponent.changeSorter(sorter);
+    this._controllerComponent.changeSorter(this._sorter);
   }
 
   onToggleChange(event: MatSlideToggleChange): void {

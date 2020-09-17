@@ -4,6 +4,12 @@ import {Bar} from "../components/bar";
 
 export class ShellSort extends Sorter {
 
+  constructor() {
+    super();
+    this._complexity = "n²/³";
+    this._stable = false;
+  }
+
   sort(array: Bar[], l: number, r: number) : Frame[] {
     let i, h, frames = [], frameArray = this.copy(array), lastJ = 1, multiples = [];
     frames.push(new Frame(array, [], false));
@@ -40,6 +46,7 @@ export class ShellSort extends Sorter {
         frameArray = this.copy(frameArray);
 
         while (j >= l + h && this.less(v, frameArray[j - h])) {
+          this._comparisons++;
           frameArray[j - h].state = 'comparing';
           changes.push(j - h);
 

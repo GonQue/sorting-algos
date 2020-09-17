@@ -19,7 +19,7 @@ import {HeapSort} from "../../sorters/HeapSort";
 })
 export class ControllerComponent {
 
-  private _sorter: Sorter = new SelectionSort();
+  private _sorter: Sorter;
   _disableButtons: boolean = false;
   private _frames: Frame[] = [];
   private _index: number = 0;

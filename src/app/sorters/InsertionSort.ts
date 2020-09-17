@@ -4,6 +4,12 @@ import {Bar} from "../components/bar";
 
 export class InsertionSort extends Sorter {
 
+  constructor() {
+    super();
+    this._complexity = "n²";
+    this._stable = true;
+  }
+
   sort(array: Bar[], l: number, r: number) : Frame[] {
     let i, frames = [], frameArray = this.copy(array);
     frames.push(new Frame(array, [], false));
@@ -15,6 +21,7 @@ export class InsertionSort extends Sorter {
       frames.push(new Frame(frameArray, [i, i - 1], false));
       frameArray = this.copy(frameArray);
 
+      this._comparisons++;
       if (this.less(frameArray[i], frameArray[i - 1])) {
         frameArray[i].state = 'minimum';
         frameArray[i - 1].state = 'initial';
@@ -48,6 +55,7 @@ export class InsertionSort extends Sorter {
       changes.push(i); // to change last highlight to initial
 
       while (this.less(v, frameArray[j - 1])) {
+        this._comparisons++;
         frameArray[j - 1].state = 'comparing';
         changes.push(j - 1);
 

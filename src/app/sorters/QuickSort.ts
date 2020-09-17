@@ -5,6 +5,12 @@ import {Bar} from "../components/bar";
 export class QuickSort extends Sorter{
   private _frameArray: Bar[] = [];
 
+  constructor() {
+    super();
+    this._complexity = "n²";
+    this._stable = false;
+  }
+
   sort(array: Bar[], l: number, r: number): Frame[] {
     let frames = [];
     this._frameArray = this.copy(array) ;
@@ -48,6 +54,7 @@ export class QuickSort extends Sorter{
       let lastJ = j - 1;
 
       while (this.less(this._frameArray[++i], v)) {
+        this._comparisons++;
         this._frameArray[i].state = 'comparing';
         frames.push(new Frame(this._frameArray, [i, lastI], false));
 
@@ -67,6 +74,7 @@ export class QuickSort extends Sorter{
         if (j == l)
           break;
 
+        this._comparisons++;
         this._frameArray[j].state = 'comparing';
         frames.push(new Frame(this._frameArray, [j, lastJ], false));
 

@@ -39,7 +39,8 @@ jobs:
       - name: Build
         run: | 
           npm install
-          npm run-script build
+          npm install -g @angular/cli
+          ng build --prod --baseHref=https://gonque.github.io/sorting-algos/
       
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@3.6.1

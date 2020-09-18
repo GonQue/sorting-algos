@@ -37,7 +37,7 @@ export class ArrayComponent implements OnInit {
     viewContainerRef.clear();
 
     for (let i = 0 ; i < this._size; i++) {
-      let componentRef = viewContainerRef.createComponent(componentFactory);
+      const componentRef = viewContainerRef.createComponent(componentFactory);
       this._barArray.push(componentRef.instance);
       this._initialArray.push(new Bar(componentRef.instance.height, 'initial'));
     }
@@ -60,7 +60,7 @@ export class ArrayComponent implements OnInit {
   }
 
   swapBars(i: number, j: number): void {
-    let temp = this._barArray[i].height;
+    const temp = this._barArray[i].height;
     this._barArray[i].height = this._barArray[j].height;
     this._barArray[j].height = temp;
   }

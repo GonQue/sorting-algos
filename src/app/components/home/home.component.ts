@@ -26,8 +26,8 @@ export class HomeComponent implements AfterViewInit {
   @ViewChild(ControllerComponent)
   private _controllerComponent: ControllerComponent
 
-  _size: number = 5;
-  _speed: number = 10;
+  _size: number = 50;
+  _speed: number = 30;
   _disableButtons: boolean = false;
   _sorter: Sorter = new SelectionSort();
 

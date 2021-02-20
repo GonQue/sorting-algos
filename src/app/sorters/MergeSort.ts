@@ -52,6 +52,11 @@ export class MergeSort extends Sorter{
       aux[r + m - j] = this._frameArray[j + 1];
     }
 
+    this._frameArray = this.copy(this._frameArray);
+    this._frameArray[l].state = 'zone';
+    this._frameArray[r].state = 'zone';
+    frames.push(new Frame(this._frameArray, [l, r], false));
+
     for (k = l; k <= r; k++) {
       this._frameArray = this.copy(this._frameArray);
       this._frameArray[k].state = 'highlight';
@@ -65,8 +70,20 @@ export class MergeSort extends Sorter{
       else {
         this._frameArray[k] = aux[i++];
       }
-      this._frameArray[k].state = 'initial';
+
+      this._frameArray = this.copy(this._frameArray);
+      if (k == l || k == r) {
+        this._frameArray[k].state = 'zone';
+      }
+      else {
+        this._frameArray[k].state = 'initial';
+      }
       frames.push(new Frame(this._frameArray, [k], false));
     }
+
+    this._frameArray = this.copy(this._frameArray);
+    this._frameArray[l].state = 'initial';
+    this._frameArray[r].state = 'initial';
+    frames.push(new Frame(this._frameArray, [l, r], false));
   }
 }

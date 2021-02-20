@@ -112,6 +112,8 @@ export class ControllerComponent {
     if (this._index < this._frames.length) {
       let array = this._frames[this._index].array;
 
+      console.log(array);
+
       if (this._frames[this._index].animated && !this._stepMode) {
         let changes = this._frames[this._index].changes;
 
@@ -123,6 +125,8 @@ export class ControllerComponent {
         }
       }
       else {
+
+        console.log(this._frames[this._index].changes)
         this._frames[this._index].changes.forEach(i => {
           this._arrayComponent.changeBarStatus(i, array[i].state);
           this._arrayComponent.changeBarHeight(i, array[i].height);

@@ -1,6 +1,6 @@
 import {
   Component,
-  ComponentFactoryResolver,
+  ComponentFactoryResolver, Input,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -19,7 +19,8 @@ import {Bar} from "../bar";
 export class ArrayComponent implements OnInit {
   _initialArray: Bar[] = [];
   _barArray: BarComponent[] = [];
-  _size: number = 5;
+  @Input()
+  _size: number;
   @ViewChild(BarDirective, {static: true}) barHost: BarDirective;
 
   constructor(private componentFactoryResolver : ComponentFactoryResolver) { }

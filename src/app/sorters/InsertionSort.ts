@@ -16,8 +16,13 @@ export class InsertionSort extends Sorter {
 
     for (i = r; i > l; i--) {
       frameArray = this.copy(frameArray);
-      frameArray[i].state = 'comparing';
+
+      if (i == r) {
+        frameArray[i].state = 'comparing';
+      }
+
       frameArray[i - 1].state = 'comparing';
+
       frames.push(new Frame(frameArray, [i, i - 1], false));
       frameArray = this.copy(frameArray);
 

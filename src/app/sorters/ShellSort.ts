@@ -20,7 +20,7 @@ export class ShellSort extends Sorter {
     for (; h > 0; h = Math.round(h / 3)) {
       frameArray = this.copy(frameArray);
       for (i = l + h; i <= r; i++) {
-        let j = i, v = frameArray.slice(i)[0], changes = [];
+        let j = i, v = frameArray.slice(i)[0], changes = [], swap = false;
         frameArray = this.copy(frameArray);
 
         multiples.forEach(i => frameArray[i].state = 'initial');
@@ -35,7 +35,7 @@ export class ShellSort extends Sorter {
         changes.push(i);
 
         // highlighting all the bars spaced of v by a multiple of h
-        multiples = [];
+        multiples = [i];
         for (let k = i; k >= l + h; k -= h) {
           frameArray[k - h].state = 'zone';
           multiples.push(k - h);
@@ -44,6 +44,7 @@ export class ShellSort extends Sorter {
         frameArray = this.copy(frameArray);
 
         while (j >= l + h && this.less(v, frameArray[j - h])) {
+          swap = true
           this._comparisons++;
           frameArray[j - h].state = 'comparing';
           changes.push(j - h);
@@ -51,17 +52,21 @@ export class ShellSort extends Sorter {
           frames.push(new Frame(frameArray, [j - h, j], false));
           frameArray = this.copy(frameArray);
 
-          frameArray[j - h].state = 'initial';
+          frameArray[j - h].state = 'zone';
 
           frameArray[j] = frameArray[j - h];
           j -= h;
         }
-        changes.push(j);
-        frameArray[j] = v;
-        frameArray[j].state = 'highlight';
-        frames.push(new Frame(frameArray, changes, false));
-        frameArray = this.copy(frameArray);
-        lastJ = j;
+
+        if (swap) {
+          changes.push(j);
+          frameArray[j] = v;
+          frameArray[j].state = 'highlight';
+          frames.push(new Frame(frameArray, changes, false));
+          frameArray = this.copy(frameArray);
+          lastJ = j;
+          swap = false
+        }
       }
     }
     frameArray = this.copy(frameArray);

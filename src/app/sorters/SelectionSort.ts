@@ -22,7 +22,7 @@ export class SelectionSort extends Sorter {
         let changes;
         frameArray = this.copy(frameArray);
         frameArray[j].state = 'comparing';
-        frameArray[min].state = 'comparing';
+        //frameArray[min].state = 'comparing';
         frames.push(new Frame(frameArray, [j, min], false));
 
         frameArray = this.copy(frameArray);

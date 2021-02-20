@@ -18,7 +18,11 @@ export class BubbleSort extends Sorter {
       done = true;
       for (j = r; j > i; j--) {
         frameArray = this.copy(frameArray);
-        frameArray[j].state = 'comparing';
+
+        if (j == r) {
+          frameArray[j].state = 'comparing';
+        }
+
         frameArray[j - 1].state = 'comparing';
         frames.push(new Frame(frameArray, [j, j - 1], false));
 

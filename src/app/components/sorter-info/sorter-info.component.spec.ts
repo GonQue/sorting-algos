@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SorterInfoComponent } from './sorter-info.component';
 
@@ -6,7 +6,7 @@ describe('SorterInfoComponent', () => {
   let component: SorterInfoComponent;
   let fixture: ComponentFixture<SorterInfoComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SorterInfoComponent ]
     })

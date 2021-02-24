@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { BarComponent } from './bar.component';
+import {BarComponent} from './bar.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 describe('BarComponent', () => {

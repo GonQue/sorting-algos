@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { ArrayComponent } from './array.component';
+import {ArrayComponent} from './array.component';
 import {BarDirective} from '../bar/bar-host.directive';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { SorterInfoComponent } from './sorter-info.component';
+import {SorterInfoComponent} from './sorter-info.component';
 
 describe('SorterInfoComponent', () => {
   let component: SorterInfoComponent;

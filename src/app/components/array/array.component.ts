@@ -1,16 +1,9 @@
-import {
-  Component,
-  ComponentFactoryResolver, Input,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import {Component, ComponentFactoryResolver, Input, OnInit, ViewChild,} from '@angular/core';
 import {BarComponent} from "../bar/bar.component";
-import {Transition} from "../transition";
 import {BarDirective} from "../bar/bar-host.directive";
 import {Sorter} from "../../sorters/Sorter";
 import {Frame} from "../frame";
 import {Bar} from "../bar";
-import {EventManager} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-array',
@@ -48,11 +41,11 @@ export class ArrayComponent implements OnInit {
   resizeBars(factor: number) {
     console.log("size:" + this._size);
     console.log("resizing");
-    //this._barArray.forEach(bar => { bar.height = Math.floor(bar.height * factor) });
     console.log(this._barArray);
 
     for (let i = 0; i < this._size; i++) {
       this._barArray[i].height = Math.round(this._barArray[i].height * factor);
+      this._initialArray[i].height = Math.round(this._initialArray[i].height * factor);
     }
 
     console.log(this._barArray);

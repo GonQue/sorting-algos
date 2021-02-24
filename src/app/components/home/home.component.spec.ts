@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { HomeComponent } from './home.component';
+import {HomeComponent} from './home.component';
 import {ControllerComponent} from "../controller/controller.component";
 import {SorterInfoComponent} from "../sorter-info/sorter-info.component";
 import {ArrayComponent} from "../array/array.component";

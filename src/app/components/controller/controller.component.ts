@@ -1,16 +1,7 @@
-import {Component, Output, EventEmitter, Input} from '@angular/core';
-import {MatSelectChange} from "@angular/material/select";
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ArrayComponent} from "../array/array.component";
 import {Sorter} from "../../sorters/Sorter";
-import {SelectionSort} from "../../sorters/SelectionSort";
-import {InsertionSort} from "../../sorters/InsertionSort";
-import {MatSlideToggleChange} from "@angular/material/slide-toggle";
 import {Frame} from "../frame";
-import {BubbleSort} from "../../sorters/BubbleSort";
-import {ShellSort} from "../../sorters/ShellSort";
-import {QuickSort} from "../../sorters/QuickSort";
-import {MergeSort} from "../../sorters/MergeSort";
-import {HeapSort} from "../../sorters/HeapSort";
 
 @Component({
   selector: 'app-controller',

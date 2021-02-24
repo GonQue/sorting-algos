@@ -10,6 +10,7 @@ import {BarDirective} from "../bar/bar-host.directive";
 import {Sorter} from "../../sorters/Sorter";
 import {Frame} from "../frame";
 import {Bar} from "../bar";
+import {EventManager} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-array',
@@ -23,7 +24,7 @@ export class ArrayComponent implements OnInit {
   _size: number;
   @ViewChild(BarDirective, {static: true}) barHost: BarDirective;
 
-  constructor(private componentFactoryResolver : ComponentFactoryResolver) { }
+  constructor(private componentFactoryResolver : ComponentFactoryResolver) {}
 
   ngOnInit(): void {
     this.loadBars();
@@ -42,6 +43,20 @@ export class ArrayComponent implements OnInit {
       this._barArray.push(componentRef.instance);
       this._initialArray.push(new Bar(componentRef.instance.height, 'initial'));
     }
+  }
+
+  resizeBars(factor: number) {
+    console.log("size:" + this._size);
+    console.log("resizing");
+    //this._barArray.forEach(bar => { bar.height = Math.floor(bar.height * factor) });
+    console.log(this._barArray);
+
+    for (let i = 0; i < this._size; i++) {
+      this._barArray[i].height = Math.round(this._barArray[i].height * factor);
+    }
+
+    console.log(this._barArray);
+
   }
 
   restartArray(): void {

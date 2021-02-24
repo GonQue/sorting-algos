@@ -1,11 +1,18 @@
 :host {
+  background: #F5F5F6;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
-  position: relative;
-  top: 1.5rem;
+  margin-top: 1rem;
+  position: relative; // so absolute can be used in children
+}
+
+@media screen and (max-height: 599px) {
+  :host {
+    margin-top: 0.5rem;
+  }
 }
 
 .arrowBtn {
@@ -34,4 +41,35 @@
   opacity: 1;
   background: lightgrey !important;
   color: rgba(0,0,0,.87) !important;
+}
+
+#coloursInformation {
+  display: flex;
+  position: absolute;
+  left: 4%;
+}
+
+@media screen and (max-width: 1000px)
+{
+  #coloursInformation {
+    display: none;
+  }
+}
+
+ul {
+  list-style-type: none;
+  margin: 0 0.5rem;
+}
+
+li {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.square {
+  height: 0.8rem;
+  width: 0.8rem;
+  position: relative;
+  right: 0.6rem;
 }

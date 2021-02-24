@@ -12,6 +12,7 @@ import {MergeSort} from "../../sorters/MergeSort";
 import {HeapSort} from "../../sorters/HeapSort";
 import {Sorter} from "../../sorters/Sorter";
 import {MatSlideToggleChange} from "@angular/material/slide-toggle";
+import {EventManager} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-home',
@@ -26,18 +27,48 @@ export class HomeComponent implements AfterViewInit {
   @ViewChild(ControllerComponent)
   private _controllerComponent: ControllerComponent
 
-  _size: number = 50;
+  // maxBarHeight for 1920x1080 is 500px and maxSize is 100
+  _maxBarHeight: number = Math.round(window.innerHeight * 500 / 921);
+  _maxSize: number = Math.round((window.innerWidth * 100) / 1920);
+  _size: number;
   _speed: number = 30;
   _disableButtons: boolean = false;
   _sorter: Sorter = new SelectionSort();
 
-  constructor() { }
+  constructor(private eventManager : EventManager) {
+    this._size = this._maxSize / 2 > 50 ? 50 : Math.round(this._maxSize / 2);
+    this.eventManager.addGlobalEventListener('window', 'resize', this.onResize.bind(this));
+  }
 
   ngAfterViewInit(): void {
     // Done to avoid ExpressionChangedAfterItHasBeenCheckedError
     this._controllerComponent.arrayComponent = this._arrayComponent;
     this._controllerComponent.changeSorter(this._sorter);
   }
+
+  onResize(event: any) {
+    const currentUsedPixels = this._size * 16;
+    console.log(currentUsedPixels);
+    const arrayComponentWidth = event.target.innerWidth * 0.9;
+    const newMaxBarHeight = Math.round(event.target.innerHeight * 500 / 921);
+    const factor = newMaxBarHeight / this._maxBarHeight;
+    console.log("factor: " + factor);
+
+    this._maxSize = Math.round((window.innerWidth * 100) / 1920);
+
+    if (currentUsedPixels >= arrayComponentWidth) {
+      this._size = this._maxSize;
+      this._arrayComponent.changeSize(this._size);
+      this._controllerComponent.resetAnimation();
+    }
+
+    console.log("height: " + event.target.innerHeight);
+    console.log(Math.round(event.target.innerHeight * 500 / 921));
+
+    this._arrayComponent.resizeBars(factor);
+    this._maxBarHeight = newMaxBarHeight;
+  }
+
 
   generateNewArray(): void {
     this._arrayComponent.loadBars();

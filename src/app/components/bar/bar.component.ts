@@ -40,7 +40,7 @@ export class BarComponent {
   _state = 'initial';
 
   constructor() {
-    const max = 500, min = 5;
+    const max = Math.round(window.innerHeight * 500 / 921), min = 5;
     this._height = Math.floor(Math.random() * (max - min + 1) ) + min;
   }
 

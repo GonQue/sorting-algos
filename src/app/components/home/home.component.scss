@@ -1,33 +1,26 @@
 @import "~src/theme.scss";
 
+#wrapper {
+  height: 100vh;
+}
+
 #topBar {
-  height: 5rem;
-  width: 100%;
+  height: fit-content;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
   background: mat-color($app-primary);
   color: white;
-  display: inline-flex;
+}
+
+#menuBtn {
+  margin-right: 1rem;
 }
 
 #title {
-  height: 100%;
-  width: fit-content;
-  position: relative;
-  left: 2rem;
-  display: flex;
-  align-items: center;
   font-size: 2rem;
   font-family: 'Turret Road', cursive;
-  white-space: nowrap;
-}
-
-#buttons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: fit-content;
-  position: relative;
-  left: 10rem;
+  margin-top: 1rem;
+  margin-left: 2rem;
 }
 
 ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
@@ -35,13 +28,12 @@
 }
 
 #algoSelect {
-  position: relative;
   top: 0.5rem;
-  margin: 0 0.5rem;
+  margin: 0 0.5rem 0 1rem;
 }
 
 #stepMode {
-  position: relative;
+  margin-right: 1rem;
 }
 
 .topBarButton {
@@ -49,10 +41,6 @@
 }
 
 .topBarSlider {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   margin: 0 0.5rem;
 }
 
@@ -63,37 +51,57 @@
 
 #body {
   background: #F5F5F6;
-  height: 49rem;
-  width: 100%;
-}
-
-#coloursInformation {
-  display: flex;
-  width: fit-content;
+  height: 100%;
   position: relative;
-  bottom: 2.8rem;
-  left: 6rem;
 }
 
-ul {
-  list-style-type: none;
-  margin: 0 0.5rem;
+#github {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: darkgrey;
 }
 
-li {
-  display: flex;
-  justify-content: left;
-  align-items: center;
+// ============== SMARTPHONE ==============
+
+@media screen and (max-height: 550px) {
+  #github {
+    display: none;
+  }
 }
 
-.square {
-  height: 0.8rem;
-  width: 0.8rem;
-  position: relative;
-  right: 0.6rem;
+@media screen and (max-width: 960px) {
+  #topBar {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 }
 
-#footer {
-  background: #F5F5F6;
-  height: 3.5rem;
+@media screen and (min-width: 1310px) and (max-width: 1390px){
+  #title {
+    font-size: 2vw;
+  }
+}
+
+#titleSP {
+  font-size: 1.6rem;
+  font-family: 'Turret Road', cursive;
+  margin-top: 1rem;
+}
+
+#drawerSP {
+  background-color: mat-color($app-primary);
+  color: white;
+}
+
+#algoSelectSP {
+  margin: 1rem 0.5rem 0;
+}
+
+.topBarButtonSP {
+  margin-bottom: 1rem;
+}
+
+.topBarSliderSP {
+  margin-bottom: 0.5rem;
 }

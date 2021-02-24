@@ -1,89 +1,140 @@
-<div id="topBar">
-  <h1 id="title">Sorting Algorithm Visualizer</h1>
+<div fxLayout="column" id="wrapper">
+  <header id="topBar">
+    <div fxLayout="row" fxLayoutAlign="start center" fxShow="true" fxHide.gt-sm>
+      <button mat-icon-button (click)="drawer.toggle()" id="menuBtn">
+        <mat-icon style="font-size: 2rem">menu</mat-icon>
+      </button>
+      <h1 id="titleSP">Sorting Algorithm Visualizer</h1>
+    </div>
+    <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="start center" fxShow="true" fxHide.lt-md="true">
+      <h1 id="title" fxFlex="30">Sorting Algorithm Visualizer</h1>
 
-  <div id="buttons">
-    <mat-form-field id="algoSelect" appearance="fill">
-      <mat-label>Sorting Algorithm</mat-label>
-      <mat-select (selectionChange)="onSelectChange($event)" value="Selection Sort" [disabled]="_disableButtons">
-        <mat-option value="Selection Sort">Selection Sort</mat-option>
-        <mat-option value="Insertion Sort">Insertion Sort</mat-option>
-        <mat-option value="Bubble Sort">Bubble Sort</mat-option>
-        <mat-option value="Shell Sort">Shell Sort</mat-option>
-        <mat-option value="Quick Sort">Quick Sort</mat-option>
-        <mat-option value="Merge Sort">Merge Sort</mat-option>
-        <mat-option value="Heap Sort">Heap Sort</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <button class="topBarButton" mat-raised-button [disabled]="_disableButtons" (click)="generateNewArray()">Generate new array</button>
-    <button class="topBarButton "mat-raised-button [disabled]="_disableButtons" (click)="restartArray()">Restart array</button>
-    <div class="topBarSlider">
-      <span class="sliderValue"> Size: {{ _size }} </span>
-      <mat-slider
-        [value]="_size"
-        [min]="2"
-        [max]="100"
-        [disabled]="_disableButtons"
-        (input)="onSizeSliderChange($event)"
-      >
-      </mat-slider>
+      <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+        <mat-form-field id="algoSelect" appearance="fill">
+          <mat-label>Sorting Algorithm</mat-label>
+          <mat-select (selectionChange)="onSelectChange($event)" value="Selection Sort" [disabled]="_disableButtons">
+            <mat-option value="Selection Sort">Selection Sort</mat-option>
+            <mat-option value="Insertion Sort">Insertion Sort</mat-option>
+            <mat-option value="Bubble Sort">Bubble Sort</mat-option>
+            <mat-option value="Shell Sort">Shell Sort</mat-option>
+            <mat-option value="Quick Sort">Quick Sort</mat-option>
+            <mat-option value="Merge Sort">Merge Sort</mat-option>
+            <mat-option value="Heap Sort">Heap Sort</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button class="topBarButton" mat-raised-button [disabled]="_disableButtons" (click)="generateNewArray()">Generate new array</button>
+        <button class="topBarButton "mat-raised-button [disabled]="_disableButtons" (click)="restartArray()">Restart array</button>
+        <div class="topBarSlider" fxLayout="column" fxLayoutAlign="center center">
+          <span class="sliderValue"> Size: {{ _size }} </span>
+          <mat-slider
+            [value]="_size"
+            [min]="2"
+            [max]="_maxSize"
+            [disabled]="_disableButtons"
+            (input)="onSizeSliderChange($event)"
+          >
+          </mat-slider>
+        </div>
+        <div class="topBarSlider" fxLayout="column" fxLayoutAlign="center center">
+          <span class="sliderValue"> Speed: {{ _speed + "ms"}} </span>
+          <mat-slider
+            [value]="_speed"
+            [min]="1"
+            [max]="100"
+            [step]="1"
+            [disabled]="_disableButtons"
+            (input)="onSpeedSliderChange($event)"
+          >
+          </mat-slider>
+        </div>
+        <mat-slide-toggle id="stepMode" [disabled]="_disableButtons" (change)="onToggleChange($event)">Step Mode</mat-slide-toggle>
+      </div>
     </div>
-    <div class="topBarSlider">
-      <span class="sliderValue"> Speed: {{ _speed + "ms"}} </span>
-      <mat-slider
-        [value]="_speed"
-        [min]="1"
-        [max]="100"
-        [step]="1"
-        [disabled]="_disableButtons"
-        (input)="onSpeedSliderChange($event)"
-      >
-      </mat-slider>
-    </div>
-    <mat-slide-toggle id="stepMode" [disabled]="_disableButtons" (change)="onToggleChange($event)">Step Mode</mat-slide-toggle>
+  </header>
+
+  <div fxShow="">
+
   </div>
 
-</div>
+  <mat-drawer-container style="height: 100%;">
+    <mat-drawer #drawer id="drawerSP">
+      <div fxLayout="column" fxLayoutAlign="start center" mode="side" opened="false">
+        <mat-form-field id="algoSelectSP" appearance="fill">
+          <mat-label>Sorting Algorithm</mat-label>
+          <mat-select (selectionChange)="onSelectChange($event)" value="Selection Sort" [disabled]="_disableButtons">
+            <mat-option value="Selection Sort">Selection Sort</mat-option>
+            <mat-option value="Insertion Sort">Insertion Sort</mat-option>
+            <mat-option value="Bubble Sort">Bubble Sort</mat-option>
+            <mat-option value="Shell Sort">Shell Sort</mat-option>
+            <mat-option value="Quick Sort">Quick Sort</mat-option>
+            <mat-option value="Merge Sort">Merge Sort</mat-option>
+            <mat-option value="Heap Sort">Heap Sort</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button class="topBarButtonSP" mat-raised-button [disabled]="_disableButtons" (click)="generateNewArray()">Generate new array</button>
+        <button class="topBarButtonSP" mat-raised-button [disabled]="_disableButtons" (click)="restartArray()">Restart array</button>
+        <div class="topBarSliderSP" fxLayout="column" fxLayoutAlign="center center">
+          <span class="sliderValue"> Size: {{ _size }} </span>
+          <mat-slider
+            [value]="_size"
+            [min]="2"
+            [max]="_maxSize"
+            [disabled]="_disableButtons"
+            (input)="onSizeSliderChange($event)"
+          >
+          </mat-slider>
+        </div>
+        <div class="topBarSliderSP" fxLayout="column" fxLayoutAlign="center center">
+          <span class="sliderValue"> Speed: {{ _speed + "ms"}} </span>
+          <mat-slider
+            [value]="_speed"
+            [min]="1"
+            [max]="100"
+            [step]="1"
+            [disabled]="_disableButtons"
+            (input)="onSpeedSliderChange($event)"
+          >
+          </mat-slider>
+        </div>
+        <mat-slide-toggle [disabled]="_disableButtons" (change)="onToggleChange($event)">Step Mode</mat-slide-toggle>
+      </div>
+    </mat-drawer>
+    <mat-drawer-content>
+      <main id="body" >
+        <app-sorter-info
+          [_sorter]="this._sorter">
+          <!--      fxLayout="row"-->
+          <!--      fxLayoutAlign="space-around center"-->
+          <!--      style="margin-top: 1rem;"-->
+        </app-sorter-info>
 
-<div id="body">
-  <app-sorter-info [_sorter]="this._sorter"></app-sorter-info>
+        <a href="https://github.com/GonQue/sorting-algos" id="github" target="_blank" rel="noopener noreferrer" title="Source code">
+          <fa-icon [icon]="['fab', 'github']" size="2x"></fa-icon>
+        </a>
 
-  <app-array
-  [_size]="_size">
-  </app-array>
 
-  <app-controller
-    (disableButtons)="onDisableButtons()"
-    (enableButtons)="onEnableButtons()"
-    [_speed]="_speed">
-  </app-controller>
+<!--        <h1 fxHide fxShow.xs>XS</h1>-->
+<!--        <h1 fxHide fxShow.sm>SM</h1>-->
+<!--        <h1 fxHide fxShow.md>MD</h1>-->
+<!--        <h1 fxHide fxShow.lg>LG</h1>-->
+<!--        <h1 fxHide fxShow.xl>XL</h1>-->
 
-  <div id="coloursInformation">
-    <ul>
-      <li>
-        <div class="square " style="background-color: #6ff9ff"></div> Initial
-      </li>
-      <li>
-        <div class="square " style="background-color: purple"></div> Comparing
-      </li>
-      <li>
-        <div class="square " style="background-color: green"></div> Sorted
-      </li>
-    </ul>
+        <app-array
+          [_size]="_size">
+        </app-array>
 
-    <ul>
-      <li>
-        <div class="square " style="background-color: yellow"></div> Maximum/Minimum
-      </li>
-      <li>
-        <div class="square " style="background-color: #EF233C"></div> Highlighted
-      </li>
-      <li>
-        <div class="square " style="background-color: orange"></div> Boundary/Being considered
-      </li>
-    </ul>
-  </div>
-</div>
 
-<div id="footer">
+        <app-controller
+          (disableButtons)="onDisableButtons()"
+          (enableButtons)="onEnableButtons()"
+          [_speed]="_speed">
+        </app-controller>
+      </main>
+
+      <footer id="footer">
+
+      </footer>
+    </mat-drawer-content>
+  </mat-drawer-container>
 
 </div>

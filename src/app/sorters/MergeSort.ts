@@ -1,6 +1,7 @@
 import {Sorter} from "./Sorter";
 import {Frame} from "../components/frame";
 import {Bar} from "../components/bar";
+import {Label} from "./Label";
 
 export class MergeSort extends Sorter{
   private _frameArray: Bar[] = [];
@@ -9,6 +10,7 @@ export class MergeSort extends Sorter{
     super();
     this._complexity = "n log(n)";
     this._stable = true;
+    this._labels = [Label.Initial, Label.Sorted, Label.Highlighted, Label.Boundary];
   }
 
   sort(array: Bar[], l: number, r: number): Frame[] {

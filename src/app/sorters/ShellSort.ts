@@ -1,6 +1,7 @@
 import {Sorter} from "./Sorter";
 import {Frame} from "../components/frame";
 import {Bar} from "../components/bar";
+import {Label} from "./Label";
 
 export class ShellSort extends Sorter {
 
@@ -8,6 +9,7 @@ export class ShellSort extends Sorter {
     super();
     this._complexity = "n²/³";
     this._stable = false;
+    this._labels = [Label.Initial, Label.Comparing, Label.Sorted, Label.Highlighted, Label.Considered];
   }
 
   sort(array: Bar[], l: number, r: number) : Frame[] {

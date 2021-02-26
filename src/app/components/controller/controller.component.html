@@ -1,25 +1,31 @@
 <div id="coloursInformation">
-  <ul>
-    <li>
-      <div class="square " style="background-color: #6ff9ff"></div> Initial
-    </li>
-    <li>
-      <div class="square " style="background-color: purple"></div> Comparing
-    </li>
-    <li>
-      <div class="square " style="background-color: green"></div> Sorted
-    </li>
-  </ul>
+<!--  <ul>-->
+<!--    <li>-->
+<!--      <div class="square " style="background-color: #6ff9ff"></div> Initial-->
+<!--    </li>-->
+<!--    <li>-->
+<!--      <div class="square " style="background-color: purple"></div> Comparing-->
+<!--    </li>-->
+<!--    <li>-->
+<!--      <div class="square " style="background-color: green"></div> Sorted-->
+<!--    </li>-->
+<!--  </ul>-->
 
+<!--  <ul>-->
+<!--    <li>-->
+<!--      <div class="square " style="background-color: yellow"></div> Maximum/Minimum-->
+<!--    </li>-->
+<!--    <li>-->
+<!--      <div class="square " style="background-color: #EF233C"></div> Highlighted-->
+<!--    </li>-->
+<!--    <li>-->
+<!--      <div class="square " style="background-color: orange"></div> Boundary/Being considered-->
+<!--    </li>-->
+<!--  </ul>-->
   <ul>
-    <li>
-      <div class="square " style="background-color: yellow"></div> Maximum/Minimum
-    </li>
-    <li>
-      <div class="square " style="background-color: #EF233C"></div> Highlighted
-    </li>
-    <li>
-      <div class="square " style="background-color: orange"></div> Boundary/Being considered
+    <li *ngFor="let label of this._sorter._labels;">
+      <div  class="square" [ngStyle]="{backgroundColor: label.color}"></div>
+      {{label.text}}
     </li>
   </ul>
 </div>

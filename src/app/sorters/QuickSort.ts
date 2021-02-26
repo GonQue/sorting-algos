@@ -1,6 +1,7 @@
 import {Sorter} from "./Sorter";
 import {Frame} from "../components/frame";
 import {Bar} from "../components/bar";
+import {Label} from "./Label";
 
 export class QuickSort extends Sorter{
   private _frameArray: Bar[] = [];
@@ -9,6 +10,7 @@ export class QuickSort extends Sorter{
     super();
     this._complexity = "n²";
     this._stable = false;
+    this._labels = [Label.Initial, Label.Comparing, Label.Sorted, Label.Minimum, Label.Boundary];
   }
 
   sort(array: Bar[], l: number, r: number): Frame[] {

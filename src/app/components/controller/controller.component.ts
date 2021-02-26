@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ArrayComponent} from "../array/array.component";
 import {Sorter} from "../../sorters/Sorter";
 import {Frame} from "../frame";
+import {SelectionSort} from "../../sorters/SelectionSort";
 
 @Component({
   selector: 'app-controller',
@@ -10,7 +11,7 @@ import {Frame} from "../frame";
 })
 export class ControllerComponent {
 
-  private _sorter: Sorter;
+  _sorter: Sorter = new SelectionSort();
   _disableButtons: boolean = false;
   private _frames: Frame[] = [];
   private _index: number = 0;

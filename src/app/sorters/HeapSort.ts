@@ -1,6 +1,7 @@
 import {Sorter} from "./Sorter";
 import {Frame} from "../components/frame";
 import {Bar} from "../components/bar";
+import {Label} from "./Label";
 
 export class HeapSort extends Sorter{
   private _frameArray: Bar[] = [];
@@ -9,6 +10,7 @@ export class HeapSort extends Sorter{
     super();
     this._complexity = "n log(n)";
     this._stable = false;
+    this._labels = [Label.Initial, Label.Comparing, Label.Sorted, Label.Maximum, Label.Highlighted];
   }
 
   sort(array: Bar[], l: number, r: number): Frame[] {

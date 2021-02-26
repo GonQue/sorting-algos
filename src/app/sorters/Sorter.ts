@@ -1,9 +1,11 @@
 import {Frame} from '../components/frame';
 import {Bar} from '../components/bar';
+import {Label} from "./Label";
 
 export abstract class Sorter {
+  _labels: Label[];
   _complexity: string;
-  _comparisons: number= 0;
+  _comparisons: number = 0;
   _stable: boolean;
 
   abstract sort(array: Bar[], l: number, r: number): Frame[];

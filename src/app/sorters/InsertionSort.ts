@@ -1,6 +1,7 @@
 import {Sorter} from "./Sorter";
 import {Frame} from "../components/frame";
 import {Bar} from "../components/bar";
+import {Label} from "./Label";
 
 export class InsertionSort extends Sorter {
 
@@ -8,6 +9,7 @@ export class InsertionSort extends Sorter {
     super();
     this._complexity = "n²";
     this._stable = true;
+    this._labels = [Label.Initial, Label.Comparing, Label.Sorted, Label.Minimum, Label.Highlighted];
   }
 
   sort(array: Bar[], l: number, r: number) : Frame[] {

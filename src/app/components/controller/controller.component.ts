@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, Output} from '@angular/core';
 import {ArrayComponent} from "../array/array.component";
 import {Sorter} from "../../sorters/Sorter";
 import {Frame} from "../frame";
@@ -195,6 +195,10 @@ export class ControllerComponent {
 
   backwardsButton(): void {
     if (this._stepMode) {
+      if (!this._rewind) {
+        this._index--;
+        this._rewind = true;
+      }
       this.animateBackwards();
       this._forwardBtnDisabled = false;
       if (this._index === 0) {
@@ -228,6 +232,11 @@ export class ControllerComponent {
 
   forwardButton(): void {
     if (this._stepMode) {
+      if (this._rewind) {
+        this._index++;
+        this._rewind = false;
+      }
+
       this.animate();
       this._backwardsBtnDisabled = false;
       if (this._index === this._frames.length)

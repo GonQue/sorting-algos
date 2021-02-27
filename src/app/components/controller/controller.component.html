@@ -30,7 +30,7 @@
   </ul>
 </div>
 
-<div>
+<div (keydown.arrowLeft)="backwardsButton()" (keydown.arrowRight)="forwardButton()">
   <button id="backBtn"  class="arrowBtn" mat-fab (click)="backwardsButton()" [disabled]="this._backwardsBtnDisabled">
     <mat-icon *ngIf="!_stepMode">fast_rewind</mat-icon>
     <mat-icon *ngIf="_stepMode">skip_previous</mat-icon>

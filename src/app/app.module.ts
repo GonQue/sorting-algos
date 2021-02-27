@@ -11,9 +11,10 @@ import {BarComponent} from './components/bar/bar.component';
 import {BarDirective} from './components/bar/bar-host.directive';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSliderModule} from '@angular/material/slider';
-import {HomeComponent} from './components/home/home.component';
+import {HomeComponent, WarningDialog} from './components/home/home.component';
 import {ControllerComponent} from './components/controller/controller.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {MatSelectModule} from '@angular/material/select';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
@@ -22,6 +23,7 @@ import {MatListModule} from "@angular/material/list";
 import {SorterInfoComponent} from './components/sorter-info/sorter-info.component';
 
 @NgModule({
+  entryComponents: [WarningDialog],
   declarations: [
     AppComponent,
     ArrayComponent,
@@ -30,6 +32,7 @@ import {SorterInfoComponent} from './components/sorter-info/sorter-info.componen
     HomeComponent,
     ControllerComponent,
     SorterInfoComponent,
+    WarningDialog,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +44,7 @@ import {SorterInfoComponent} from './components/sorter-info/sorter-info.componen
     MatSliderModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatDialogModule,
     MatIconModule,
     MatSidenavModule,
     MatListModule,

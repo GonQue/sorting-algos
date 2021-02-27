@@ -1,8 +1,9 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, ViewChild} from '@angular/core';
 import {ArrayComponent} from "../array/array.component";
 import {MatSliderChange} from "@angular/material/slider";
 import {ControllerComponent} from "../controller/controller.component";
 import {MatSelectChange} from "@angular/material/select";
+import {MatDialog} from "@angular/material/dialog";
 import {SelectionSort} from "../../sorters/SelectionSort";
 import {InsertionSort} from "../../sorters/InsertionSort";
 import {BubbleSort} from "../../sorters/BubbleSort";
@@ -15,11 +16,17 @@ import {MatSlideToggleChange} from "@angular/material/slide-toggle";
 import {EventManager} from "@angular/platform-browser";
 
 @Component({
+  selector: 'warning-dialog',
+  templateUrl: 'warning-dialog.html'
+})
+export class WarningDialog {}
+
+@Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent implements AfterViewInit{
 
   @ViewChild(ArrayComponent)
   private _arrayComponent: ArrayComponent;
@@ -31,11 +38,12 @@ export class HomeComponent implements AfterViewInit {
   _maxBarHeight: number = Math.round(window.innerHeight * 500 / 921);
   _maxSize: number = Math.round((window.innerWidth * 100) / 1920);
   _size: number;
-  _speed: number = 30;
+  _speed: number = 70;
   _disableButtons: boolean = false;
   _sorter: Sorter = new SelectionSort();
+  _warningSeen: boolean = localStorage.getItem('warningSeen') !== null;
 
-  constructor(private eventManager : EventManager) {
+  constructor(private eventManager : EventManager, public dialog: MatDialog) {
     this._size = this._maxSize / 2 > 50 ? 50 : Math.round(this._maxSize / 2);
     this.eventManager.addGlobalEventListener('window', 'resize', this.onResize.bind(this));
   }
@@ -86,7 +94,16 @@ export class HomeComponent implements AfterViewInit {
     this._controllerComponent.resetAnimation();
   }
 
+  onSpeedSliderInput(event: MatSliderChange): void {
+    this._speed = event.value;
+  }
+
   onSpeedSliderChange(event: MatSliderChange): void {
+    if (event.value > 70 && !this._warningSeen) {
+      this.dialog.open(WarningDialog);
+      localStorage.setItem('warningSeen', 'true');
+      this._warningSeen = true;
+    }
     this._speed = event.value;
   }
 

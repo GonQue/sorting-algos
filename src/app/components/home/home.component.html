@@ -36,14 +36,15 @@
           </mat-slider>
         </div>
         <div class="topBarSlider" fxLayout="column" fxLayoutAlign="center center">
-          <span class="sliderValue"> Speed: {{ _speed + "ms"}} </span>
+          <span class="sliderValue"> Speed: {{ _speed }} </span>
           <mat-slider
             [value]="_speed"
             [min]="1"
             [max]="100"
             [step]="1"
             [disabled]="_disableButtons"
-            (input)="onSpeedSliderChange($event)"
+            (input)="onSpeedSliderInput($event)"
+            (change)="onSpeedSliderChange($event)"
           >
           </mat-slider>
         </div>
@@ -51,10 +52,6 @@
       </div>
     </div>
   </header>
-
-  <div fxShow="">
-
-  </div>
 
   <mat-drawer-container style="height: 100%;">
     <mat-drawer #drawer id="drawerSP">
@@ -85,7 +82,7 @@
           </mat-slider>
         </div>
         <div class="topBarSliderSP" fxLayout="column" fxLayoutAlign="center center">
-          <span class="sliderValue"> Speed: {{ _speed + "ms"}} </span>
+          <span class="sliderValue"> Speed: {{ _speed }} </span>
           <mat-slider
             [value]="_speed"
             [min]="1"
@@ -103,9 +100,6 @@
       <main id="body" >
         <app-sorter-info
           [_sorter]="this._sorter">
-          <!--      fxLayout="row"-->
-          <!--      fxLayoutAlign="space-around center"-->
-          <!--      style="margin-top: 1rem;"-->
         </app-sorter-info>
 
         <a href="https://github.com/GonQue/sorting-algos" id="github" target="_blank" rel="noopener noreferrer" title="Source code">
@@ -127,7 +121,7 @@
         <app-controller
           (disableButtons)="onDisableButtons()"
           (enableButtons)="onEnableButtons()"
-          [_speed]="_speed">
+          [_speed]="101 - _speed">
         </app-controller>
       </main>
 

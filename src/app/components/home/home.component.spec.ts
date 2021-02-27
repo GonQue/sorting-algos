@@ -1,11 +1,12 @@
 import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import {HomeComponent} from './home.component';
+import {HomeComponent, WarningDialog} from './home.component';
 import {ControllerComponent} from "../controller/controller.component";
 import {SorterInfoComponent} from "../sorter-info/sorter-info.component";
 import {ArrayComponent} from "../array/array.component";
 import {BarDirective} from "../bar/bar-host.directive";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatDialogModule} from "@angular/material/dialog";
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -13,8 +14,8 @@ describe('HomeComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [ BrowserAnimationsModule],
-      declarations: [ HomeComponent, ControllerComponent, SorterInfoComponent, ArrayComponent, BarDirective ]
+      imports: [ BrowserAnimationsModule, MatDialogModule],
+      declarations: [ HomeComponent, ControllerComponent, SorterInfoComponent, ArrayComponent, BarDirective, WarningDialog ]
     })
     .compileComponents();
   }));

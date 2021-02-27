@@ -251,9 +251,4 @@ export class ControllerComponent {
       this._forwardBtnDisabled = true;
     }
   }
-
-  // IMPLEMENTAR TEMPO QUE DEMOROU A CORRER
-  // BUGS COM SEQUENCIA DE SORT, RESET, STOP, RESUME
-  // KEYBINDS TO CONTROL
-  // save last session size, speed and warning message
 }

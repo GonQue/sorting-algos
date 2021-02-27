@@ -8,6 +8,7 @@ export class HeapSort extends Sorter{
 
   constructor() {
     super();
+    this._name = "HeapSort";
     this._complexity = "n log(n)";
     this._stable = false;
     this._labels = [Label.Initial, Label.Comparing, Label.Sorted, Label.Maximum, Label.Highlighted];

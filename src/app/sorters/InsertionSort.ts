@@ -7,6 +7,7 @@ export class InsertionSort extends Sorter {
 
   constructor() {
     super();
+    this._name = "Insertion Sort";
     this._complexity = "n²";
     this._stable = true;
     this._labels = [Label.Initial, Label.Comparing, Label.Sorted, Label.Minimum, Label.Highlighted];

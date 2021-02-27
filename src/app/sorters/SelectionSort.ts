@@ -7,6 +7,7 @@ export class SelectionSort extends Sorter {
 
   constructor() {
     super();
+    this._name = "Selection Sort";
     this._complexity = "n²";
     this._stable = false;
     this._labels = [Label.Initial, Label.Comparing, Label.Sorted, Label.Minimum];

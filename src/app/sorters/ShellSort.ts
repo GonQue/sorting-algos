@@ -7,6 +7,7 @@ export class ShellSort extends Sorter {
 
   constructor() {
     super();
+    this._name = "Shell Sort";
     this._complexity = "n²/³";
     this._stable = false;
     this._labels = [Label.Initial, Label.Comparing, Label.Sorted, Label.Highlighted, Label.Considered];

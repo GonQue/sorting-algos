@@ -12,14 +12,14 @@
       <div fxFlex fxLayout="row" fxLayoutAlign="start center">
         <mat-form-field id="algoSelect" appearance="fill">
           <mat-label>Sorting Algorithm</mat-label>
-          <mat-select (selectionChange)="onSelectChange($event)" value="Selection Sort" [disabled]="_disableButtons">
+          <mat-select (selectionChange)="onSelectChange($event)" [value]="this._sorter.name" [disabled]="_disableButtons">
             <mat-option value="Selection Sort">Selection Sort</mat-option>
             <mat-option value="Insertion Sort">Insertion Sort</mat-option>
             <mat-option value="Bubble Sort">Bubble Sort</mat-option>
             <mat-option value="Shell Sort">Shell Sort</mat-option>
-            <mat-option value="Quick Sort">QuickSort</mat-option>
+            <mat-option value="QuickSort">QuickSort</mat-option>
             <mat-option value="Merge Sort">Merge Sort</mat-option>
-            <mat-option value="Heap Sort">HeapSort</mat-option>
+            <mat-option value="HeapSort">HeapSort</mat-option>
           </mat-select>
         </mat-form-field>
         <button class="topBarButton" mat-raised-button [disabled]="_disableButtons" (click)="generateNewArray()">Generate new array</button>
@@ -58,14 +58,14 @@
       <div fxLayout="column" fxLayoutAlign="start center" mode="side" opened="false">
         <mat-form-field id="algoSelectSP" appearance="fill">
           <mat-label>Sorting Algorithm</mat-label>
-          <mat-select (selectionChange)="onSelectChange($event)" value="Selection Sort" [disabled]="_disableButtons">
+          <mat-select (selectionChange)="onSelectChange($event)" [value]="this._sorter.name" [disabled]="_disableButtons">
             <mat-option value="Selection Sort">Selection Sort</mat-option>
             <mat-option value="Insertion Sort">Insertion Sort</mat-option>
             <mat-option value="Bubble Sort">Bubble Sort</mat-option>
             <mat-option value="Shell Sort">Shell Sort</mat-option>
-            <mat-option value="Quick Sort">Quick Sort</mat-option>
+            <mat-option value="QuickSort">QuickSort</mat-option>
             <mat-option value="Merge Sort">Merge Sort</mat-option>
-            <mat-option value="Heap Sort">Heap Sort</mat-option>
+            <mat-option value="HeapSort">HeapSort</mat-option>
           </mat-select>
         </mat-form-field>
         <button class="topBarButtonSP" mat-raised-button [disabled]="_disableButtons" (click)="generateNewArray()">Generate new array</button>

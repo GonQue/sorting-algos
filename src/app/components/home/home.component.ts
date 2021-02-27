@@ -124,11 +124,11 @@ export class HomeComponent implements AfterViewInit{
       this._sorter = new BubbleSort();
     else if (event.value === "Shell Sort")
       this._sorter = new ShellSort();
-    else if (event.value === "Quick Sort")
+    else if (event.value === "QuickSort")
       this._sorter = new QuickSort();
     else if (event.value === "Merge Sort")
       this._sorter = new MergeSort();
-    else if (event.value === "Heap Sort")
+    else if (event.value === "HeapSort")
       this._sorter = new HeapSort();
     else
       window.alert("ERROR");

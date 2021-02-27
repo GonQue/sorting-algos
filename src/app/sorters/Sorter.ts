@@ -7,6 +7,7 @@ export abstract class Sorter {
   _complexity: string;
   _comparisons: number = 0;
   _stable: boolean;
+  _name: string;
 
   abstract sort(array: Bar[], l: number, r: number): Frame[];
 
@@ -36,5 +37,9 @@ export abstract class Sorter {
 
   get stable(): boolean {
     return this._stable;
+  }
+
+  get name(): string {
+    return this._name;
   }
 }

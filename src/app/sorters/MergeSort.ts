@@ -8,6 +8,7 @@ export class MergeSort extends Sorter{
 
   constructor() {
     super();
+    this._name = "Merge Sort";
     this._complexity = "n log(n)";
     this._stable = true;
     this._labels = [Label.Initial, Label.Sorted, Label.Highlighted, Label.Boundary];

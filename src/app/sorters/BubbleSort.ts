@@ -7,6 +7,7 @@ export class BubbleSort extends Sorter {
 
   constructor() {
     super();
+    this._name = "Bubble Sort";
     this._complexity = "n²";
     this._stable = true;
     this._labels = [Label.Initial, Label.Comparing, Label.Sorted, Label.Minimum];

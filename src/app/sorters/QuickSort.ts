@@ -8,6 +8,7 @@ export class QuickSort extends Sorter{
 
   constructor() {
     super();
+    this._name = "QuickSort";
     this._complexity = "n²";
     this._stable = false;
     this._labels = [Label.Initial, Label.Comparing, Label.Sorted, Label.Minimum, Label.Boundary];

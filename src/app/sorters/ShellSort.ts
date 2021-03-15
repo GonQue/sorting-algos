@@ -69,6 +69,13 @@ export class ShellSort extends Sorter {
           frameArray = this.copy(frameArray);
           lastJ = j;
           swap = false
+        } else {
+          this._comparisons++;
+          changes.push(j);
+          changes.push(j - h);
+          frameArray[j-h].state = 'comparing';
+          frames.push(new Frame(frameArray, changes, false));
+          frameArray = this.copy(frameArray);
         }
       }
     }

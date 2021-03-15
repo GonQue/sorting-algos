@@ -20,14 +20,10 @@ export class SelectionSort extends Sorter {
       let min = i;
       frameArray = this.copy(frameArray);
       frameArray[i].state = 'minimum';
-      frames.push(new Frame(frameArray, [i], false));
+      frameArray[i + 1].state = 'comparing';
+      frames.push(new Frame(frameArray, [i, i + 1], false));
       for (j = i + 1; j <= r; j++) {
         let changes;
-        frameArray = this.copy(frameArray);
-        frameArray[j].state = 'comparing';
-        //frameArray[min].state = 'comparing';
-        frames.push(new Frame(frameArray, [j, min], false));
-
         frameArray = this.copy(frameArray);
         this._comparisons++;
         if (this.less(frameArray[j], frameArray[min])) {
@@ -40,6 +36,10 @@ export class SelectionSort extends Sorter {
           frameArray[min].state = 'minimum';
           frameArray[j].state = 'initial';
           changes = [min, j];
+        }
+        if (j != r) {
+          frameArray[j + 1].state = 'comparing';
+          changes.push(j + 1);
         }
         frames.push(new Frame(frameArray, changes, false));
       }

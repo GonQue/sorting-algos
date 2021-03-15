@@ -27,6 +27,10 @@ export abstract class Sorter {
     return newArray;
   }
 
+  resetComparisons() {
+    this._comparisons = 0;
+  }
+
   get complexity(): string {
     return this._complexity;
   }

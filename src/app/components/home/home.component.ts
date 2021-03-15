@@ -38,7 +38,7 @@ export class HomeComponent implements AfterViewInit{
   _maxBarHeight: number = Math.round(window.innerHeight * 500 / 921);
   _maxSize: number = Math.round((window.innerWidth * 100) / 1920);
   _size: number;
-  _speed: number = 70;
+  _speed: number = 30;
   _disableButtons: boolean = false;
   _sorter: Sorter = new SelectionSort();
   _warningSeen: boolean = localStorage.getItem('warningSeen') !== null;

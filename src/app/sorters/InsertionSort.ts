@@ -31,11 +31,6 @@ export class InsertionSort extends Sorter {
 
       this._comparisons++;
       if (this.less(frameArray[i], frameArray[i - 1])) {
-        frameArray[i].state = 'minimum';
-        frameArray[i - 1].state = 'initial';
-        frames.push(new Frame(frameArray, [i, i - 1], false));
-
-        frameArray = this.copy(frameArray);
         this.swap(frameArray, i - 1, i);
         frameArray[i - 1].state = 'minimum';
         frameArray[i].state = 'initial';

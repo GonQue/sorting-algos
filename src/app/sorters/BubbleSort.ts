@@ -33,10 +33,6 @@ export class BubbleSort extends Sorter {
         this._comparisons++;
         if (this.less(frameArray[j], frameArray[j - 1])) {
           done = false;
-          frameArray[j].state = 'minimum';
-          frameArray[j - 1].state = 'initial';
-          frames.push(new Frame(frameArray, [j, j - 1], false));
-
           frameArray = this.copy(frameArray);
           this.swap(frameArray, j - 1, j);
           frameArray[j - 1].state = 'minimum';

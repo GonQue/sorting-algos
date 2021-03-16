@@ -116,8 +116,6 @@ export class ControllerComponent {
         }
       }
       else {
-        // console.log("changes: " + this._frames[this._index].changes);
-        // console.log(this._frames[this._index].array);
         this._frames[this._index].changes.forEach(i => {
           this._arrayComponent.changeBarStatus(i, array[i].state);
           this._arrayComponent.changeBarHeight(i, array[i].height);
@@ -152,8 +150,6 @@ export class ControllerComponent {
       }
 
       else {
-        // console.log("changes: " + this._frames[this._index].changes);
-        // console.log(this._frames[this._index].array);
         this._frames[this._index].changes.forEach(i => {
           this._arrayComponent.changeBarStatus(i, array[i].state);
           this._arrayComponent.changeBarHeight(i, array[i].height);

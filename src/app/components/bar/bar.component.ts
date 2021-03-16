@@ -6,16 +6,16 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
   animations: [
     trigger('changeState', [
       state('initial', style({
-        backgroundColor: '#6ff9ff'
+        backgroundColor: '#82F8FF'
       })),
       state('comparing', style({
         backgroundColor: 'purple',
       })),
       state('minimum', style({
-        backgroundColor: 'yellow',
+        backgroundColor: '#FFF73F',
       })),
       state('maximum', style({
-        backgroundColor: 'yellow',
+        backgroundColor: '#FFF73F',
       })),
       state('highlight', style({
         backgroundColor: '#EF233C',
@@ -24,7 +24,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
         backgroundColor: 'green',
       })),
       state('zone', style({
-        backgroundColor: 'orange',
+        backgroundColor: '#FFB000',
       })),
       transition('* => *', [
         animate('10ms'),
